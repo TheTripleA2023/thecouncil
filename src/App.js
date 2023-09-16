@@ -6,22 +6,21 @@ import {
 	Textarea,
 } from "@chakra-ui/react";
 import "./App.css";
-import { useRef, useState, Suspense, useEffect} from 'react'
-import { Canvas, useFrame, useThree} from '@react-three/fiber'
-import * as React from 'react'
+import { useRef, useState, Suspense, useEffect } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import * as React from "react";
 import { AiOutlineCheck } from "react-icons/ai";
-import Model from "./components/Model.js"
+import Model from "./components/Model.js";
 import Frog from "./components/Frog";
 import Table from "./components/Table";
 import { Environment, Lightformer, OrbitControls, PivotControls } from '@react-three/drei'
 
+import theme from "./chakra-theme";
 
 //Backend
-import GPTCouncil from './councilBackend/gptCouncil.js'
-
+import GPTCouncil from "./councilBackend/gptCouncil.js";
 
 const AIHandler = new GPTCouncil();
-
 
 //3D Components
 function CouncilTable(props, id) {
@@ -36,6 +35,9 @@ function CouncilTable(props, id) {
   }
   
   useFrame((state, delta) => (ref.current.rotation.y += delta/4))
+	function pickCouncilMember() {
+		click(!clicked);
+	}
 
   // Return the view, these are regular Threejs elements expressed in JSX
   return (
@@ -49,32 +51,36 @@ function CouncilTable(props, id) {
       <Suspense fallback={null}>
         {/* <Frog position={[0, 0, 0]}/> */}
         <Table position={[0, 0, 0]} scale={0.01}/>
-        <Model position={[0, 0, -1.4]} scale={1} />
+        <Model position={[0, 0, -1.4]} name="Panda" />
+        <Model position={[1.4, 0,  0]} rotation={[0, Math.PI/-2, 0]} name="Flamingo" />
+        <Model position={[0, 0, 1.4]} rotation={[0, Math.PI, 0]} name="Cat" />
+        <Model position={[-1.4, 0, 0]} rotation={[0, Math.PI/2, 0]} name="Platypus" />
       </Suspense>
     </mesh>
-  )
+  );
 }
 
 function Shadows(props) {
-  const { viewport } = useThree()
-  return (
-    <mesh receiveShadow scale={[viewport.width, viewport.height, 1]} {...props}>
-      <planeGeometry />
-      <shadowMaterial transparent opacity={0.5} />
-    </mesh>
-  )
+	const { viewport } = useThree();
+	return (
+		<mesh
+			receiveShadow
+			scale={[viewport.width, viewport.height, 1]}
+			{...props}
+		>
+			<planeGeometry />
+			<shadowMaterial transparent opacity={0.5} />
+		</mesh>
+	);
 }
-
-
 
 //2D Components
 function CouncilCard(props) {
-
 	return (
 		<div className="council-card">
 			<Text className="council-card-message">{props.message}</Text>
 			<div className="council-card-member">
-         {/* Cannot have 3js elements in a 2d component, so probably redundant? */}
+				{/*  Cannot have 3js elements in a 2d component, so probably redundant?*/}
 				<div className="council-card-member-image">
         </div>
      
@@ -87,25 +93,63 @@ function CouncilCard(props) {
 export default function App() {
 	const [pageStage, setPageStage] = useState(0);
 	const [inputValue, setInputValue] = useState("");
-  const [data, setData] = useState(null);
+	const [data, setData] = useState(null);
+	const [isLoading, setLoading] = useState(false);
 
-  const ref = useRef()
+	const ref = useRef();
+
+	// const handleSubmit = () => {
+	// 	setInputValue(document.querySelector(".prompt-input").value);
+	// 	if (inputValue === "") {
+	// 		return;
+	// 	}
+	// 	AIHandler.askTheCouncil(inputValue)
+	// 		.then(setData(AIHandler.godJson))
+	// 		.then(setPageStage(1));
+	// };
 
 	const handleSubmit = () => {
 		setInputValue(document.querySelector(".prompt-input").value);
-    if(inputValue === "") {return};
-    AIHandler.askTheCouncil(inputValue).then(setData(AIHandler.godJson)).then(setPageStage(1));
+		if (inputValue === "") {
+			return;
+		}
+
+		setLoading(true); // Set loading to true before making the API call
+
+		AIHandler.askTheCouncil(inputValue)
+			.then((response) => {
+				setData(AIHandler.godJson);
+				setPageStage(1); // Move this line here to update the stage after receiving the response
+			})
+			.catch((error) => {
+				console.error("Error fetching data:", error);
+				// Handle the error here if needed
+			})
+			.finally(() => {
+				setLoading(false); // Set loading to false when the response is received
+			});
 	};
 
 	const handleReply = () => {
-    setInputValue(document.querySelector(".council-reply-prompt-input").value);
-		// TODO
-    if(inputValue === "") {return};
-    AIHandler.askTheCouncil(inputValue).then(setData(AIHandler.godJson)).then(setPageStage(1));
+		setInputValue(document.querySelector(".prompt-input").value);
+		if (inputValue === "") {
+			return;
+		}
+
+		setLoading(true); // Set loading to true before making the API call
+
+		AIHandler.askTheCouncil(inputValue)
+			.then((response) => {
+				setData(AIHandler.godJson);
+				setPageStage(1);
+			})
+			.finally(() => {
+				setLoading(false); // Set loading to false when the response is received
+			});
 	};
 
 	return (
-		<ChakraProvider>
+		<ChakraProvider theme={theme}>
 			<div ref={ref} className="container">
 				{/* PAGE STAGE 1 - HOMEPAGE */}
 				{pageStage === 0 && (
@@ -158,17 +202,35 @@ export default function App() {
 							The Council says...
 						</Text>
 						<Text className="council-query-label">Your query:</Text>
-						<Text className="council-query">{data.questions[data.questions.length-1]}</Text>
-            <div className="council-cards">
-              {/* I CANNOT GET THIS TO UPDATE */}
-              {data.members.map((councilMember,index)=>{
-                  return <CouncilCard
-                    key={index}
-                    name= {councilMember.name}
-                    message= {councilMember.conversation[councilMember.conversation.length-1].content}
-                  />
-              })}
-            </div>
+						{data ? (
+							<Text className="council-query">
+								{data.questions[data.questions.length - 1]}
+							</Text>
+						) : (
+							<div>Loading...</div> // Display a loading message while data is loading
+						)}
+						<div className="council-cards">
+							{data ? (
+								data.members.map((councilMember, index) => (
+									<CouncilCard
+										key={index}
+										name={councilMember.name}
+										message={
+											councilMember.conversation &&
+											councilMember.conversation.length
+												? councilMember.conversation[
+														councilMember
+															.conversation
+															.length - 1
+												  ]?.content || ""
+												: ""
+										}
+									/>
+								))
+							) : (
+								<div>Loading...</div> // Display a loading message while data is loading
+							)}
+						</div>
 						<div className="council-reply-prompt">
 							<Input
 								className="council-reply-prompt-input"
@@ -206,7 +268,7 @@ export default function App() {
 					</div>
 				)}
         <Canvas 
-          orthographic camera={{ position: [0, 6, 10], zoom: 100 }} 
+          orthographic camera={{ position: [0, 5, 10], zoom: 100 }} 
           style={{ pointerEvents: 'none' }}
           // In order for two dom nodes to be able to receive events they must share
           // the same source. By re-connecting the canvas to a parent that contains the
@@ -214,7 +276,7 @@ export default function App() {
           eventSource={ref}
           eventPrefix="client">
           <ambientLight />
-          <directionalLight castShadow intensity={0.015} position={[0, 0, 10]} /> //less intense light
+          <directionalLight castShadow intensity={0.15} position={[0, 0, 10]} />
           <group >
             <CouncilTable position={[0, 2, 0]} scale={5.0}/>
           </group>
@@ -234,8 +296,6 @@ export default function App() {
 		</ChakraProvider>
 	);
 }
-
-
 
 /*
 export default function App() {
@@ -279,6 +339,3 @@ export default function App() {
         </Canvas>
 
 */
-
-
-
