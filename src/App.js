@@ -29,12 +29,6 @@ function CouncilTable(props, id) {
   // Hold state for hovered and clicked events
   const [hovered, hover] = useState(false)
   const [clicked, click] = useState(false)
-function CouncilMember(props, id) {
-	// This reference gives us direct access to the THREE.Mesh object
-	const ref = useRef();
-	// Hold state for hovered and clicked events
-	const [hovered, hover] = useState(false);
-	const [clicked, click] = useState(false);
 
   function pickCouncilMember() {
     click(!clicked)
@@ -63,23 +57,7 @@ function CouncilMember(props, id) {
         <Model position={[-1.4, 0, 0]} rotation={[0, Math.PI/2, 0]} name="Platypus" />
       </Suspense>
     </mesh>
-  )
-	// Return the view, these are regular Threejs elements expressed in JSX
-	return (
-		<mesh
-			{...props}
-			ref={ref}
-			scale={clicked ? 1.5 : 1}
-			onClick={(event) => pickCouncilMember()}
-			onPointerOver={(event) => (event.stopPropagation(), hover(true))}
-			onPointerOut={(event) => hover(false)}
-		>
-			<Suspense fallback={null}>
-				<Model pose={4} position={[0, 0, 0]} />
-			</Suspense>
-			<meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
-		</mesh>
-	);
+  );
 }
 
 function Shadows(props) {
@@ -102,7 +80,7 @@ function CouncilCard(props) {
 		<div className="council-card">
 			<Text className="council-card-message">{props.message}</Text>
 			<div className="council-card-member">
-				{/*  Cannot have 3js elements in a 2d component, so probably redundant?
+				{/*  Cannot have 3js elements in a 2d component, so probably redundant?*/}
 				<div className="council-card-member-image">
         </div>
      
@@ -140,7 +118,7 @@ export default function App() {
 
 		AIHandler.askTheCouncil(inputValue)
 			.then((response) => {
-				setData(response);
+				setData(AIHandler.godJson);
 				setPageStage(1); // Move this line here to update the stage after receiving the response
 			})
 			.catch((error) => {
@@ -162,7 +140,7 @@ export default function App() {
 
 		AIHandler.askTheCouncil(inputValue)
 			.then((response) => {
-				setData(response);
+				setData(AIHandler.godJson);
 				setPageStage(1);
 			})
 			.finally(() => {
