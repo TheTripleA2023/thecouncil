@@ -7,6 +7,7 @@
 
 body {
 	background-color: transparent;
+	font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 .homepage-content,
@@ -109,4 +110,18 @@ body {
 	/* background-image: url('path/to/your-image.jpg');
     background-size: cover; */
 	margin-right: 10px;
+}
+
+.coucil-reply-prompt {
+	margin-top: 40px;
+}
+
+.coucil-reply-prompt-input {
+	min-width: 488px;
+	vertical-align: middle;
+	margin-right: 12px;
+}
+
+.reply-button {
+	vertical-align: middle;
 }

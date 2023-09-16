@@ -57,6 +57,10 @@ export default function App() {
 		setInputValue(document.querySelector(".prompt-input").value);
 	};
 
+	const handleReply = () => {
+		// TODO
+	};
+
 	return (
 		<ChakraProvider className="body">
 			{pageStage === 0 && (
@@ -76,8 +80,9 @@ export default function App() {
 						/>
 						<Button
 							className="submit-button"
+							colorScheme="teal"
 							rightIcon={<AiOutlineCheck />}
-							variant="outline"
+							variant="solid"
 							ml={2} // Add margin-left to create space between the input and button
 							onClick={handleSubmit} // Call the handleSubmit function on button click
 						>
@@ -109,6 +114,23 @@ export default function App() {
 							name="The Bear"
 							message="Listen to your instincts and consider what you truly want. If meeting your ex aligns with your personal growth and happiness, go for it. However, if it feels like a step backwards, prioritize yourself and politely decline."
 						></CouncilCard>
+					</div>
+					<div className="coucil-reply-prompt">
+						<Input
+							className="coucil-reply-prompt-input"
+							placeholder="I'm thinking about..."
+							style={{ width: "488px" }}
+						/>
+						<Button
+							className="reply-button"
+							colorScheme="teal"
+							rightIcon={<AiOutlineCheck />}
+							variant="solid"
+							ml={2} // Add margin-left to create space between the input and button
+							onClick={handleReply} // Call the handleSubmit function on button click
+						>
+							OK
+						</Button>
 					</div>
 				</div>
 			)}
