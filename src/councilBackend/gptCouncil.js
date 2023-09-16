@@ -99,7 +99,7 @@ export default class GPTCouncil {
                     messages: [{ role: "system", content: member.settings }, ...member.conversation],
                     model: model,
                 });
-    
+                console.log(member.name + ": " + verdict.choices[0].message.content)
                 member.conversation.push({"role": "assistant", "content": verdict.choices[0].message.content});
             });
     
