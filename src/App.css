@@ -1,3 +1,21 @@
+/* ALL */
+/* .body {
+	background-image: url("../public/background.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+} */
+
+body {
+	background-color: transparent;
+}
+
+.homepage-content,
+.homepage-title,
+.homepage-prompt,
+.council-content {
+	background-color: transparent;
+}
+
 /* PAGE STAGE 1 - HOMEPAGE */
 
 .homepage-content {
@@ -18,9 +36,16 @@
 	font-weight: 900;
 }
 
+.homepage-prompt {
+	display: flex;
+	align-items: center;
+}
+
 .prompt-input {
-	width: 488px;
+	min-width: 488px;
 	vertical-align: middle;
+	/* flex-grow: 1; */
+	margin-right: 12px;
 }
 
 .submit-button {

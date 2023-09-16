@@ -46,7 +46,7 @@ export default function App() {
 	};
 
 	return (
-		<ChakraProvider>
+		<ChakraProvider className="body">
 			{pageStage === 0 && (
 				<div className="homepage-content">
 					<div className="homepage-title">
@@ -60,6 +60,7 @@ export default function App() {
 						<Input
 							className="prompt-input"
 							placeholder="Tell us what's going on"
+							style={{ width: "488px" }}
 						/>
 						<Button
 							className="submit-button"
