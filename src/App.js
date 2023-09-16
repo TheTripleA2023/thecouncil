@@ -35,7 +35,7 @@ function CouncilTable(props, id) {
     click(!clicked)
   }
   
-  useFrame((state, delta) => (ref.current.rotation.y += delta))
+  useFrame((state, delta) => (ref.current.rotation.y += delta/4))
 
   // Return the view, these are regular Threejs elements expressed in JSX
   return (
@@ -47,10 +47,9 @@ function CouncilTable(props, id) {
       onPointerOver={(event) => (event.stopPropagation(), hover(true))}
       onPointerOut={(event) => hover(false)}>
       <Suspense fallback={null}>
-        {/* <Model pose={4} position={[0, 0, 0]} /> */}
         {/* <Frog position={[0, 0, 0]}/> */}
-        <Model position={[0, 0, 0]} />
-        <Table position={[5, 0, 0]} scale={0.01}/>
+        <Table position={[0, 0, 0]} scale={0.01}/>
+        <Model position={[0, 0, -1.4]} scale={1} />
       </Suspense>
     </mesh>
   )
@@ -207,7 +206,7 @@ export default function App() {
 					</div>
 				)}
         <Canvas 
-          orthographic camera={{ position: [0, 5, 10], zoom: 100 }} 
+          orthographic camera={{ position: [0, 6, 10], zoom: 100 }} 
           style={{ pointerEvents: 'none' }}
           // In order for two dom nodes to be able to receive events they must share
           // the same source. By re-connecting the canvas to a parent that contains the
@@ -215,7 +214,7 @@ export default function App() {
           eventSource={ref}
           eventPrefix="client">
           <ambientLight />
-          <directionalLight castShadow intensity={0.6} position={[0, 0, 10]} />
+          <directionalLight castShadow intensity={0.015} position={[0, 0, 10]} /> //less intense light
           <group >
             <CouncilTable position={[0, 2, 0]} scale={5.0}/>
           </group>

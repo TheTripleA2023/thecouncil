@@ -3,7 +3,6 @@
 */
 
 import useSpline from '@splinetool/r3f-spline'
-import { OrthographicCamera } from '@react-three/drei'
 
 export default function Frog({ ...props }) {
   const { nodes, materials } = useSpline('https://prod.spline.design/1vFpLuZBjCqcxKso/scene.splinecode')
