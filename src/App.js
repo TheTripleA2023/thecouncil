@@ -196,20 +196,53 @@ export default function App() {
 						<Text className="council-query">{inputValue}</Text>
 					</div>
 				)}
-					<ambientLight intensity={0.5} />
-					<spotLight
-						position={[10, 10, 10]}
-						angle={0.15}
-						penumbra={1}
-					/>
-					<pointLight position={[-10, -10, -10]} />
-					<Box position={[-1.2, 0, 0]} />
-					<Box position={[1.2, 0, 0]} />
-					<OrbitControls />
-				</Canvas> */}
+				<Canvas
+          shadows
+          camera={{ position: [0, 0, 4] }}
+          style={{ pointerEvents: 'none' }}
+          // In order for two dom nodes to be able to receive events they must share
+          // the same source. By re-connecting the canvas to a parent that contains the
+          // text content as well as the canvas we do just that.
+          eventSource={ref}
           eventPrefix="client">
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[10, 10, 10]} angle={0.15} penumbra={1} castShadow shadow-mapSize={[2024, 2024]} />
+          <pointLight position={[10, 0, 0]} />
+          <CouncilMember position={[-1.2, -1, 0]}/>
+          <CouncilMember position={[1.2, -1, 0]}/>
+          <Shadows position={[0, 0, 0]} />
+        </Canvas>
 			</div>
 		</ChakraProvider>
 	);
 }
+
+
+
+/*
 export default function App() {
+  const ref = useRef()
+  return (
+    <ChakraProvider>
+      <div ref={ref} className="container">
+      <div className='text'>
+        <Text>In a dilemma?</Text>
+        <Text>Ask the council.</Text>
+
+        <div>
+          <Input placeholder="Enter prompt here."/>
+          <Button rightIcon={<AiOutlineCheck/>} variant='outline'>
+            OK
+          </Button>
+        </div>
+      </div>
+
+      </div>
+    </ChakraProvider>
+  )
+}
+
+*/
+
+
+
