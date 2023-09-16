@@ -14,6 +14,7 @@ import Model from "./components/Model.js";
 import Frog from "./components/Frog";
 import Table from "./components/Table";
 import { Environment, Lightformer, OrbitControls, PivotControls } from '@react-three/drei'
+import { Image } from '@chakra-ui/react'
 
 import theme from "./chakra-theme";
 
@@ -50,11 +51,15 @@ function CouncilTable(props, id) {
       onPointerOut={(event) => hover(false)}>
       <Suspense fallback={null}>
         {/* <Frog position={[0, 0, 0]}/> */}
-        <Table position={[0, 0, 0]} scale={0.01}/>
-        <Model position={[0, 0, -1.4]} name="Panda" />
+        <Table position={[0, 0, 0]} scale={0.012}/>
+        <Model position={[0, 0, -1.8]} scale={1.75} name="Panda" />
         <Model position={[1.4, 0,  0]} rotation={[0, Math.PI/-2, 0]} name="Flamingo" />
         <Model position={[0, 0, 1.4]} rotation={[0, Math.PI, 0]} name="Cat" />
-        <Model position={[-1.4, 0, 0]} rotation={[0, Math.PI/2, 0]} name="Platypus" />
+        <Model position={[-1.6, 0, 0]} rotation={[0, Math.PI/2, 0]} name="Platypus" />
+        <Model position={[-1, 0, -1]} scale={0.9} rotation={[0, Math.PI/4, 0]} name="Frog" />
+        <Model position={[1, 0, 1]} scale={0.8} rotation={[0, -3*Math.PI/4, 0]} name="Possum" />
+        <Model position={[-1.1, 0, 1.1]} rotation={[0, 3*Math.PI/4, 0]} name="Hornbill" />
+        <Model position={[1.4, 0, -1.4]} scale={1.2} rotation={[0, -Math.PI/4, 0]} name="Tiger" />
       </Suspense>
     </mesh>
   );
@@ -82,6 +87,10 @@ function CouncilCard(props) {
 			<div className="council-card-member">
 				{/*  Cannot have 3js elements in a 2d component, so probably redundant?*/}
 				<div className="council-card-member-image">
+        <Image
+          borderRadius='full'
+          src='CatAvatar.png'
+        />
         </div>
      
 				<Text className="council-card-member-name">{props.name}</Text>
@@ -276,21 +285,10 @@ export default function App() {
           eventSource={ref}
           eventPrefix="client">
           <ambientLight />
-          <directionalLight castShadow intensity={0.6} position={[0, 0, 10]} />
+          <directionalLight castShadow intensity={0.01} position={[0, 0, 10]} />
           <group >
             <CouncilTable position={[0, 2, 0]} scale={5.0}/>
           </group>
-          <Environment resolution={256}>
-            <group rotation={[-Math.PI / 2, 0, 0]}>
-              <Lightformer intensity={4} rotation-x={Math.PI / 2} position={[0, 5, -9]} scale={[10, 10, 1]} />
-              {[2, 0, 2, 0, 2, 0, 2, 0].map((x, i) => (
-                <Lightformer key={i} form="circle" intensity={4} rotation={[Math.PI / 2, 0, 0]} position={[x, 4, i * 4]} scale={[4, 1, 1]} />
-              ))}
-              <Lightformer intensity={2} rotation-y={Math.PI / 2} position={[-5, 1, -1]} scale={[50, 2, 1]} />
-              <Lightformer intensity={2} rotation-y={Math.PI / 2} position={[-5, -1, -1]} scale={[50, 2, 1]} />
-              <Lightformer intensity={2} rotation-y={-Math.PI / 2} position={[10, 1, 0]} scale={[50, 2, 1]} />
-            </group>
-          </Environment>
         </Canvas>
 			</div>
 		</ChakraProvider>
