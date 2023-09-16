@@ -36,6 +36,18 @@ function Box(props) {
 	);
 }
 
+function CouncilCard(props) {
+	return (
+		<div className="council-card">
+			<Text className="council-card-message">{props.message}</Text>
+			<div className="council-card-member">
+				<div className="council-card-member-image"></div>
+				<Text className="council-card-member-name">{props.name}</Text>
+			</div>
+		</div>
+	);
+}
+
 export default function App() {
 	const [pageStage, setPageStage] = useState(0);
 	const [inputValue, setInputValue] = useState("");
@@ -80,6 +92,24 @@ export default function App() {
 					<Text className="council-title">The Council says...</Text>
 					<Text className="council-query-label">Your query:</Text>
 					<Text className="council-query">{inputValue}</Text>
+					<div className="council-cards">
+						<CouncilCard
+							name="The Starfish"
+							message="Go for it! Take this opportunity to reconnect and have a conversation. First, make sure to set some boundaries, express your feelings, and listen. This could be a chance to rebuild and create something even better than before!"
+						></CouncilCard>
+						<CouncilCard
+							name="The Hammerhead"
+							message="Do not go. Entertaining the idea of going over is unwise and potentially setting yourself up for disappointment or even heartbreak. Prioritize your emotional well-being by avoiding unnecessary complications from the past."
+						></CouncilCard>
+						<CouncilCard
+							name="The Tree Frog"
+							message="Absolutely go over! This is surely a sign that they can't resist your magnetic allure. Embrace the opportunity to reignite the passion and show them what they're missing!"
+						></CouncilCard>
+						<CouncilCard
+							name="The Bear"
+							message="Listen to your instincts and consider what you truly want. If meeting your ex aligns with your personal growth and happiness, go for it. However, if it feels like a step backwards, prioritize yourself and politely decline."
+						></CouncilCard>
+					</div>
 				</div>
 			)}
 

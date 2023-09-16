@@ -53,3 +53,60 @@ body {
 }
 
 /* PAGE STAGE 2 - THE COUNCIL */
+
+.council-title {
+	font-size: 80px;
+	font-weight: 900;
+	/* margin-top: 100px; */
+}
+
+.council-query-label {
+	font-size: 20px;
+}
+
+.council-query {
+	font-size: 24px;
+	font-weight: 900;
+}
+
+.council-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.council-cards {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr); /* 2 columns with equal width */
+	gap: 20px;
+}
+
+.council-card {
+	width: 590px;
+	height: 220px;
+	padding: 20px;
+	border-radius: 16px;
+	background: linear-gradient(to bottom, #46537a, #203864);
+	color: #ffffff;
+	font-size: 20px;
+}
+
+.council-card-message {
+	margin-bottom: 20px;
+}
+
+.council-card-member {
+	display: flex;
+	align-items: center;
+}
+
+.council-card-member-image {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: grey;
+	/* background-image: url('path/to/your-image.jpg');
+    background-size: cover; */
+	margin-right: 10px;
+}
