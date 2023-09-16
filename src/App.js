@@ -2,7 +2,8 @@ import { useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import * as React from 'react'
-import { ChakraProvider, Text } from '@chakra-ui/react'
+import { Button, ChakraProvider, Input, Text, Textarea } from '@chakra-ui/react'
+import { AiOutlineCheck } from "react-icons/ai";
 
 function Box(props) {
   // This reference gives us direct access to the THREE.Mesh object
@@ -30,8 +31,18 @@ function Box(props) {
 export default function App() {
   return (
     <ChakraProvider>
-      <Text>In a dilemma?</Text>
-      <Text>Ask the council.</Text>
+      <div className='homepage-text'>
+        <Text>In a dilemma?</Text>
+        <Text>Ask the council.</Text>
+
+        <div>
+          {/* <Textarea placeholder="Enter prompt here."/> */}
+          <Input placeholder="Enter prompt here."/>
+          <Button rightIcon={<AiOutlineCheck/>} variant='outline'>
+            OK
+          </Button>
+        </div>
+      </div>
 
       <Canvas>
         <ambientLight intensity={0.5} />
