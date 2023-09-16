@@ -12,6 +12,7 @@ import * as React from 'react'
 import { AiOutlineCheck } from "react-icons/ai";
 import Model from "./components/Model.js"
 import Frog from "./components/Frog";
+import Table from "./components/Table";
 
 //Backend
 import GPTCouncil from './councilBackend/gptCouncil.js'
@@ -43,6 +44,8 @@ function CouncilMember(props, id) {
       onPointerOut={(event) => hover(false)}>
       <Suspense fallback={null}>
         <Model pose={4} position={[0, 0, 0]} />
+        {/* <Frog position={[0, 0, 0]}/> */}
+        <Table position={[0, 0, 0]}/>
       </Suspense>
       <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
     </mesh>
@@ -68,10 +71,10 @@ function CouncilCard(props) {
 		<div className="council-card">
 			<Text className="council-card-message">{props.message}</Text>
 			<div className="council-card-member">
-        {/*  Cannot have 3js elements in a 2d component, so probably redundant?
+         {/* Cannot have 3js elements in a 2d component, so probably redundant? */}
 				<div className="council-card-member-image">
         </div>
-      */}
+     
 				<Text className="council-card-member-name">{props.name}</Text>
 			</div>
 		</div>
@@ -199,9 +202,16 @@ export default function App() {
 						<Text className="council-query">{inputValue}</Text>
 					</div>
 				)}
+
+        <perspectiveCamera
+          ref={ref}
+          position={[4, 2, 5]} // Set the initial camera position (x, y, z)
+          rotation={[0, 0, 0]} // Set the initial camera rotation (x, y, z)
+        />
+
 				<Canvas
           shadows
-          camera={{ position: [0, 0, 4] }}
+          // camera={{ position: [0, 0, 4] }}
           style={{ pointerEvents: 'none' }}
           // In order for two dom nodes to be able to receive events they must share
           // the same source. By re-connecting the canvas to a parent that contains the
@@ -219,33 +229,4 @@ export default function App() {
 		</ChakraProvider>
 	);
 }
-
-
-
-/*
-export default function App() {
-  const ref = useRef()
-  return (
-    <ChakraProvider>
-      <div ref={ref} className="container">
-      <div className='text'>
-        <Text>In a dilemma?</Text>
-        <Text>Ask the council.</Text>
-
-        <div>
-          <Input placeholder="Enter prompt here."/>
-          <Button rightIcon={<AiOutlineCheck/>} variant='outline'>
-            OK
-          </Button>
-        </div>
-      </div>
-
-      </div>
-    </ChakraProvider>
-  )
-}
-
-*/
-
-
 
