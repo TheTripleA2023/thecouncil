@@ -59,6 +59,10 @@
 
 /* PAGE STAGE 2 - THE COUNCIL */
 
+.council-content {
+	color: white;
+}
+
 .council-title {
 	font-size: 80px;
 	font-weight: 900;
@@ -71,7 +75,8 @@
 
 .council-query {
 	font-size: 24px;
-	font-weight: 900;
+	font-weight: 600;
+	margin-bottom: 24px;
 }
 
 .council-content {

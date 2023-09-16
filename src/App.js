@@ -81,14 +81,18 @@ export default function App() {
 							<Input
 								className="prompt-input"
 								placeholder="Tell us what's going on"
-								style={{ width: "488px" }}
+								style={{
+									width: "488px",
+								}}
 								colorScheme="gray"
 								variant="filled"
 								_focus={{
-									borderColor: "gray", // Set the border color when the input is focused
+									borderColor: "gray",
 									textColor: "gray",
 									bg: "white",
-									boxShadow: "0 0 0 2px rgba(0, 0, 0, 0.1)", // Add a focus shadow
+									boxShadow: "0 0 0 2px rgba(0, 0, 0, 0.1)",
+									overflowY: "auto",
+									resize: "vertical",
 								}}
 							/>
 							<Button
@@ -135,6 +139,13 @@ export default function App() {
 								className="coucil-reply-prompt-input"
 								placeholder="I'm thinking about..."
 								style={{ width: "488px" }}
+								variant="filled"
+								_focus={{
+									borderColor: "gray", // Set the border color when the input is focused
+									textColor: "gray",
+									bg: "white",
+									boxShadow: "0 0 0 2px rgba(0, 0, 0, 0.1)", // Add a focus shadow
+								}}
 							/>
 							<Button
 								className="reply-button"
