@@ -4,6 +4,7 @@ import { OrbitControls } from '@react-three/drei'
 import * as React from 'react'
 import { Button, ChakraProvider, Input, Text, Textarea } from '@chakra-ui/react'
 import { AiOutlineCheck } from "react-icons/ai";
+import './App.css';
 
 function Box(props) {
   // This reference gives us direct access to the THREE.Mesh object
@@ -31,13 +32,13 @@ function Box(props) {
 export default function App() {
   return (
     <ChakraProvider>
-      <div className='homepage-text'>
-        <Text>In a dilemma?</Text>
-        <Text>Ask the council.</Text>
+      <div className='homepage'>
+        <Text fontSize="80px">In a dilemma?</Text>
+        <Text fontSize="80px">Ask the council.</Text>
 
-        <div>
+        <div className='enter-prompt'>
           {/* <Textarea placeholder="Enter prompt here."/> */}
-          <Input placeholder="Enter prompt here."/>
+          <Input placeholder="Enter prompt here." width="50%" marginRight="20px"/>
           <Button rightIcon={<AiOutlineCheck/>} variant='outline'>
             OK
           </Button>

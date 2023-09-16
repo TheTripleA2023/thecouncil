@@ -1,0 +1,9 @@
+.homepage {
+    text-align: center;
+}
+
+.enter-prompt {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
