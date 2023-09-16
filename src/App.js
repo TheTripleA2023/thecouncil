@@ -193,6 +193,12 @@ export default function App() {
 								OK
 							</Button>
 						</div>
+
+            <Text className="homepage-text homepage-text-1">"my roommates hate me"</Text>
+            <Text className="homepage-text homepage-text-2">"do I text my ex back"</Text>
+            <Text className="homepage-text homepage-text-3">"how often should I be showering"</Text>
+            <Text className="homepage-text homepage-text-4">"does pineapple go on pizza"</Text>
+            <Text className="homepage-text homepage-text-5">*insert moral dilemma here*</Text>
 					</div>
 				)}
 				{/* PAGE STAGE 2 - THE COUNCIL */}
