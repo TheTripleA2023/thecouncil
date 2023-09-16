@@ -6,96 +6,115 @@ import {
 	Textarea,
 } from "@chakra-ui/react";
 import "./App.css";
-import { useRef, useState, Suspense, useEffect} from 'react'
-import { Canvas, useFrame, useThree} from '@react-three/fiber'
-import * as React from 'react'
+import { useRef, useState, Suspense, useEffect } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import * as React from "react";
 import { AiOutlineCheck } from "react-icons/ai";
-import Model from "./components/Model.js"
+import Model from "./components/Model.js";
 import Frog from "./components/Frog";
 
 //Backend
-import GPTCouncil from './councilBackend/gptCouncil.js'
-
+import GPTCouncil from "./councilBackend/gptCouncil.js";
 
 const AIHandler = new GPTCouncil();
 
-
 //3D Components
 function CouncilMember(props, id) {
-  // This reference gives us direct access to the THREE.Mesh object
-  const ref = useRef()
-  // Hold state for hovered and clicked events
-  const [hovered, hover] = useState(false)
-  const [clicked, click] = useState(false)
+	// This reference gives us direct access to the THREE.Mesh object
+	const ref = useRef();
+	// Hold state for hovered and clicked events
+	const [hovered, hover] = useState(false);
+	const [clicked, click] = useState(false);
 
-  function pickCouncilMember() {
-    click(!clicked)
-  }
+	function pickCouncilMember() {
+		click(!clicked);
+	}
 
-  // Return the view, these are regular Threejs elements expressed in JSX
-  return (
-    <mesh
-      {...props}
-      ref={ref}
-      scale={clicked ? 1.5 : 1}
-      onClick={(event) => pickCouncilMember() }
-      onPointerOver={(event) => (event.stopPropagation(), hover(true))}
-      onPointerOut={(event) => hover(false)}>
-      <Suspense fallback={null}>
-        <Model pose={4} position={[0, 0, 0]} />
-      </Suspense>
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
-    </mesh>
-  )
+	// Return the view, these are regular Threejs elements expressed in JSX
+	return (
+		<mesh
+			{...props}
+			ref={ref}
+			scale={clicked ? 1.5 : 1}
+			onClick={(event) => pickCouncilMember()}
+			onPointerOver={(event) => (event.stopPropagation(), hover(true))}
+			onPointerOut={(event) => hover(false)}
+		>
+			<Suspense fallback={null}>
+				<Model pose={4} position={[0, 0, 0]} />
+			</Suspense>
+			<meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
+		</mesh>
+	);
 }
 
 function Shadows(props) {
-  const { viewport } = useThree()
-  return (
-    <mesh receiveShadow scale={[viewport.width, viewport.height, 1]} {...props}>
-      <planeGeometry />
-      <shadowMaterial transparent opacity={0.5} />
-    </mesh>
-  )
+	const { viewport } = useThree();
+	return (
+		<mesh
+			receiveShadow
+			scale={[viewport.width, viewport.height, 1]}
+			{...props}
+		>
+			<planeGeometry />
+			<shadowMaterial transparent opacity={0.5} />
+		</mesh>
+	);
 }
-
-
 
 //2D Components
 function CouncilCard(props) {
-
-	return (
-		<div className="council-card">
-			<Text className="council-card-message">{props.message}</Text>
-			<div className="council-card-member">
-        {/*  Cannot have 3js elements in a 2d component, so probably redundant?
-				<div className="council-card-member-image">
-        </div>
-      */}
-				<Text className="council-card-member-name">{props.name}</Text>
-			</div>
-		</div>
-	);
+	{
+		data &&
+			data.members &&
+			Array.isArray(data.members) &&
+			data.members.map((councilMember, index) => {
+				return (
+					<CouncilCard
+						key={index}
+						name={councilMember.name}
+						message={
+							councilMember.conversation[
+								councilMember.conversation.length - 1
+							].content
+						}
+					/>
+				);
+			});
+	}
 }
 
 export default function App() {
 	const [pageStage, setPageStage] = useState(0);
 	const [inputValue, setInputValue] = useState("");
-  const [data, setData] = useState(null);
+	const [replyValue, setReplyValue] = useState("");
+	const [data, setData] = useState(null);
 
-  const ref = useRef()
+	const ref = useRef();
 
 	const handleSubmit = () => {
 		setInputValue(document.querySelector(".prompt-input").value);
-    if(inputValue === "") {return};
-    AIHandler.askTheCouncil(inputValue).then(setData(AIHandler.godJson)).then(setPageStage(1));
+		if (inputValue === "") {
+			return;
+		}
+		AIHandler.askTheCouncil(inputValue).then((response) => {
+			setData(response);
+			setPageStage(1);
+		});
 	};
 
 	const handleReply = () => {
-    setInputValue(document.querySelector(".council-reply-prompt-input").value);
+		setReplyValue(
+			document.querySelector(".council-reply-prompt-input").value
+		);
 		// TODO
-    if(inputValue === "") {return};
-    AIHandler.askTheCouncil(inputValue).then(setData(AIHandler.godJson)).then(setPageStage(1));
+		if (replyValue === "") {
+			return;
+		}
+		AIHandler.askTheCouncil(replyValue).then((response) => {
+			setData(response);
+			setPageStage(1);
+		});
 	};
 
 	return (
@@ -152,17 +171,29 @@ export default function App() {
 							The Council says...
 						</Text>
 						<Text className="council-query-label">Your query:</Text>
-						<Text className="council-query">{data.questions[data.questions.length-1]}</Text>
-            <div className="council-cards">
-              {/* I CANNOT GET THIS TO UPDATE */}
-              {data.members.map((councilMember,index)=>{
-                  return <CouncilCard
-                    key={index}
-                    name= {councilMember.name}
-                    message= {councilMember.conversation[councilMember.conversation.length-1].content}
-                  />
-              })}
-            </div>
+						<Text className="council-query">
+							{data && data.questions && data.questions.length > 0
+								? data.questions[data.questions.length - 1]
+								: "No query available"}
+						</Text>
+
+						<div className="council-cards">
+							{/* I CANNOT GET THIS TO UPDATE */}
+							{data.members.map((councilMember, index) => {
+								return (
+									<CouncilCard
+										key={index}
+										name={councilMember.name}
+										message={
+											councilMember.conversation[
+												councilMember.conversation
+													.length - 1
+											].content
+										}
+									/>
+								);
+							})}
+						</div>
 						<div className="council-reply-prompt">
 							<Input
 								className="council-reply-prompt-input"
@@ -200,27 +231,32 @@ export default function App() {
 					</div>
 				)}
 				<Canvas
-          shadows
-          camera={{ position: [0, 0, 4] }}
-          style={{ pointerEvents: 'none' }}
-          // In order for two dom nodes to be able to receive events they must share
-          // the same source. By re-connecting the canvas to a parent that contains the
-          // text content as well as the canvas we do just that.
-          eventSource={ref}
-          eventPrefix="client">
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 10, 10]} angle={0.15} penumbra={1} castShadow shadow-mapSize={[2024, 2024]} />
-          <pointLight position={[10, 0, 0]} />
-          <CouncilMember position={[-1.2, -1, 0]}/>
-          <CouncilMember position={[1.2, -1, 0]}/>
-          <Shadows position={[0, 0, 0]} />
-        </Canvas>
+					shadows
+					camera={{ position: [0, 0, 4] }}
+					style={{ pointerEvents: "none" }}
+					// In order for two dom nodes to be able to receive events they must share
+					// the same source. By re-connecting the canvas to a parent that contains the
+					// text content as well as the canvas we do just that.
+					eventSource={ref}
+					eventPrefix="client"
+				>
+					<ambientLight intensity={0.5} />
+					<directionalLight
+						position={[10, 10, 10]}
+						angle={0.15}
+						penumbra={1}
+						castShadow
+						shadow-mapSize={[2024, 2024]}
+					/>
+					<pointLight position={[10, 0, 0]} />
+					<CouncilMember position={[-1.2, -1, 0]} />
+					<CouncilMember position={[1.2, -1, 0]} />
+					<Shadows position={[0, 0, 0]} />
+				</Canvas>
 			</div>
 		</ChakraProvider>
 	);
 }
-
-
 
 /*
 export default function App() {
@@ -246,6 +282,3 @@ export default function App() {
 }
 
 */
-
-
-
