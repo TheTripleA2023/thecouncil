@@ -49,7 +49,10 @@ function CouncilTable(props, id) {
       <Suspense fallback={null}>
         {/* <Frog position={[0, 0, 0]}/> */}
         <Table position={[0, 0, 0]} scale={0.01}/>
-        <Model position={[0, 0, -1.4]} />
+        <Model position={[0, 0, -1.4]} name="Panda" />
+        <Model position={[1.4, 0,  0]} rotation={[0, Math.PI/-2, 0]} name="Flamingo" />
+        <Model position={[0, 0, 1.4]} rotation={[0, Math.PI, 0]} name="Cat" />
+        <Model position={[-1.4, 0, 0]} rotation={[0, Math.PI/2, 0]} name="Platypus" />
       </Suspense>
     </mesh>
   )
