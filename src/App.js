@@ -12,6 +12,8 @@ import * as React from 'react'
 import { AiOutlineCheck } from "react-icons/ai";
 import Model from "./components/Model.js"
 import Frog from "./components/Frog";
+import { Environment, Lightformer, OrbitControls, PivotControls } from '@react-three/drei'
+
 
 //Backend
 import GPTCouncil from './councilBackend/gptCouncil.js'
@@ -31,6 +33,8 @@ function CouncilMember(props, id) {
   function pickCouncilMember() {
     click(!clicked)
   }
+  
+  useFrame((state, delta) => (ref.current.rotation.y += delta))
 
   // Return the view, these are regular Threejs elements expressed in JSX
   return (
@@ -198,21 +202,30 @@ export default function App() {
 						<Text className="council-query">{inputValue}</Text>
 					</div>
 				)}
-				<Canvas
-          shadows
-          camera={{ position: [0, 0, 4] }}
+        <Canvas 
+          orthographic camera={{ position: [0, 5, 10], zoom: 100 }} 
           style={{ pointerEvents: 'none' }}
           // In order for two dom nodes to be able to receive events they must share
           // the same source. By re-connecting the canvas to a parent that contains the
           // text content as well as the canvas we do just that.
           eventSource={ref}
           eventPrefix="client">
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 10, 10]} angle={0.15} penumbra={1} castShadow shadow-mapSize={[2024, 2024]} />
-          <pointLight position={[10, 0, 0]} />
-          <CouncilMember position={[0, 0, 0]}/>
-          <CouncilMember position={[0, 0, 0]}/>
-          <Shadows position={[0, 0, 0]} />
+          <ambientLight />
+          <directionalLight castShadow intensity={0.6} position={[0, 0, 10]} />
+          <group >
+            <CouncilMember position={[0, 2, 0]} scale={5.0}/>
+          </group>
+          <Environment resolution={256}>
+            <group rotation={[-Math.PI / 2, 0, 0]}>
+              <Lightformer intensity={4} rotation-x={Math.PI / 2} position={[0, 5, -9]} scale={[10, 10, 1]} />
+              {[2, 0, 2, 0, 2, 0, 2, 0].map((x, i) => (
+                <Lightformer key={i} form="circle" intensity={4} rotation={[Math.PI / 2, 0, 0]} position={[x, 4, i * 4]} scale={[4, 1, 1]} />
+              ))}
+              <Lightformer intensity={2} rotation-y={Math.PI / 2} position={[-5, 1, -1]} scale={[50, 2, 1]} />
+              <Lightformer intensity={2} rotation-y={Math.PI / 2} position={[-5, -1, -1]} scale={[50, 2, 1]} />
+              <Lightformer intensity={2} rotation-y={-Math.PI / 2} position={[10, 1, 0]} scale={[50, 2, 1]} />
+            </group>
+          </Environment>
         </Canvas>
 			</div>
 		</ChakraProvider>
@@ -243,6 +256,24 @@ export default function App() {
     </ChakraProvider>
   )
 }
+
+
+				<Canvas
+          shadows
+          camera={{ position: [0, 0, 4] }}
+          style={{ pointerEvents: 'none' }}
+          // In order for two dom nodes to be able to receive events they must share
+          // the same source. By re-connecting the canvas to a parent that contains the
+          // text content as well as the canvas we do just that.
+          eventSource={ref}
+          eventPrefix="client">
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[10, 10, 10]} angle={0.15} penumbra={1} castShadow shadow-mapSize={[2024, 2024]} />
+          <pointLight position={[10, 0, 0]} />
+          <CouncilMember position={[0, 0, 0]}/>
+          <CouncilMember position={[0, 0, 0]}/>
+          <Shadows position={[0, 0, 0]} />
+        </Canvas>
 
 */
 
