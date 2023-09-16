@@ -129,7 +129,7 @@ export default function Scene({ ...props }) {
             rotation={[-Math.PI / 2, 0, Math.PI / 2]}
           />
           <directionalLight
-            name="Directional Light"
+            // name="Directional Light"
             castShadow
             shadow-mapSize-width={1024}
             shadow-mapSize-height={1024}
@@ -141,8 +141,8 @@ export default function Scene({ ...props }) {
             shadow-camera-bottom={-1000}
             position={[-35.88, 300, 288.5]}
           />
-          <OrthographicCamera name="1" makeDefault={true} far={10000} near={-50000} />
-          <hemisphereLight name="Default Ambient Light" intensity={0.75} color="#eaeaea" />
+          {/* <OrthographicCamera name="1" makeDefault={true} far={10000} near={-50000} /> */}
+          {/* <hemisphereLight name="Default Ambient Light" intensity={0.75} color="#eaeaea" /> */}
         </scene>
       </group>
     </>
