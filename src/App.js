@@ -38,9 +38,11 @@ function Box(props) {
 
 export default function App() {
 	const [pageStage, setPageStage] = useState(0);
+	const [inputValue, setInputValue] = useState("");
 
 	const handleSubmit = () => {
 		setPageStage(1);
+		setInputValue(document.querySelector(".prompt-input").value);
 	};
 
 	return (
@@ -75,7 +77,8 @@ export default function App() {
 			{pageStage === 1 && (
 				<div className="council-content">
 					<Text className="council-title">The Council says...</Text>
-					<Text className="council-title">The Council says...</Text>
+					<Text className="council-query-label">Your query:</Text>
+					<Text className="council-query">{inputValue}</Text>
 				</div>
 			)}
 
