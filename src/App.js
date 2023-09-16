@@ -24,7 +24,7 @@ const AIHandler = new GPTCouncil();
 
 
 //3D Components
-function CouncilMember(props, id) {
+function CouncilTable(props, id) {
   // This reference gives us direct access to the THREE.Mesh object
   const ref = useRef()
   // Hold state for hovered and clicked events
@@ -50,7 +50,7 @@ function CouncilMember(props, id) {
         {/* <Model pose={4} position={[0, 0, 0]} /> */}
         {/* <Frog position={[0, 0, 0]}/> */}
         <Model position={[1, 0, 0]} />
-        <Table position={[0, 0, 0]}/>
+        <Table position={[0, 0, 0]} scale={0.1}/>
       </Suspense>
     </mesh>
   )
@@ -217,7 +217,7 @@ export default function App() {
           <ambientLight />
           <directionalLight castShadow intensity={0.6} position={[0, 0, 10]} />
           <group >
-            <CouncilMember position={[0, 2, 0]} scale={5.0}/>
+            <CouncilTable position={[0, 2, 0]} scale={5.0}/>
           </group>
           <Environment resolution={256}>
             <group rotation={[-Math.PI / 2, 0, 0]}>

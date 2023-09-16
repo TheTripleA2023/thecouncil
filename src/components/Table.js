@@ -9,7 +9,6 @@ export default function Scene({ ...props }) {
   const { nodes, materials } = useSpline('https://prod.spline.design/u8olueo-1orOoKzy/scene.splinecode')
   return (
     <>
-      <color attach="background" args={['#fefefe']} />
       <group {...props} dispose={null}>
         <scene name="Scene 1">
           <mesh
@@ -128,21 +127,6 @@ export default function Scene({ ...props }) {
             receiveShadow
             rotation={[-Math.PI / 2, 0, Math.PI / 2]}
           />
-          <directionalLight
-            name="Directional Light"
-            castShadow
-            shadow-mapSize-width={1024}
-            shadow-mapSize-height={1024}
-            shadow-camera-near={-10000}
-            shadow-camera-far={100000}
-            shadow-camera-left={-1000}
-            shadow-camera-right={1000}
-            shadow-camera-top={1000}
-            shadow-camera-bottom={-1000}
-            position={[-35.88, 300, 288.5]}
-          />
-          <OrthographicCamera name="1" makeDefault={true} far={10000} near={-50000} />
-          <hemisphereLight name="Default Ambient Light" intensity={0.75} color="#eaeaea" />
         </scene>
       </group>
     </>
