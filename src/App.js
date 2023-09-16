@@ -63,9 +63,7 @@ function Shadows(props) {
 }
 
 //2D Components
-function CouncilCard(props) {
-
-}
+function CouncilCard(props) {}
 
 export default function App() {
 	const [pageStage, setPageStage] = useState(0);
@@ -161,24 +159,23 @@ export default function App() {
 						</Text>
 						<div className="council-cards">
 							{/* I CANNOT GET THIS TO UPDATE */}
-              {
-                data &&
-                  data.members &&
-                  Array.isArray(data.members) &&
-                  data.members.map((councilMember, index) => {
-                    return (
-                      <CouncilCard
-                        key={index}
-                        name={councilMember.name}
-                        message={
-                          councilMember.conversation[
-                            councilMember.conversation.length - 1
-                          ].content
-                        }
-                      />
-                    );
-                  })
-              }
+							{data &&
+								data.members &&
+								Array.isArray(data.members) &&
+								data.members.map((councilMember, index) => {
+									return (
+										<CouncilCard
+											key={index}
+											name={councilMember.name}
+											message={
+												councilMember.conversation[
+													councilMember.conversation
+														.length - 1
+												].content
+											}
+										/>
+									);
+								})}
 						</div>
 						<div className="council-reply-prompt">
 							<Input
