@@ -1,20 +1,12 @@
 /* ALL */
-/* .body {
+.body {
 	background-image: url("../public/background.png");
 	background-size: cover;
 	background-repeat: no-repeat;
-} */
-
-body {
-	background-color: transparent;
-	font-family: "Plus Jakarta Sans", sans-serif;
-}
-
-.homepage-content,
-.homepage-title,
-.homepage-prompt,
-.council-content {
-	background-color: transparent;
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+	/* font-family: "Plus Jakarta Sans", sans-serif; */
 }
 
 /* PAGE STAGE 1 - HOMEPAGE */
@@ -26,6 +18,9 @@ body {
 	justify-content: center;
 	/* height: 100vh; 
     text-align: center;  */
+	/* background-image: url("../public/background.png");
+	background-size: cover;
+	background-repeat: no-repeat; */
 }
 
 .homepage-title {
@@ -35,11 +30,20 @@ body {
 .homepage-h1 {
 	font-size: 80px;
 	font-weight: 900;
+	color: #ffffff;
+}
+
+.homepage-gradient-text {
+	background-image: linear-gradient(to right, #12e9f1, #bf7fea);
+	background-clip: text;
+	color: transparent;
+	margin-left: 16px;
 }
 
 .homepage-prompt {
 	display: flex;
 	align-items: center;
+	margin-top: 36px;
 }
 
 .prompt-input {
