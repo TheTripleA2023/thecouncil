@@ -151,6 +151,7 @@ export default function App() {
 						<Text className="council-query-label">Your query:</Text>
 						<Text className="council-query">{data.questions[data.questions.length-1]}</Text>
             <div className="council-cards">
+              {/* I CANNOT GET THIS TO UPDATE */}
               {data.members.map((councilMember,index)=>{
                   return <CouncilCard
                     key={index}
