@@ -1,0 +1,30 @@
+/* PAGE STAGE 1 - HOMEPAGE */
+
+.homepage-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	/* height: 100vh; 
+    text-align: center;  */
+}
+
+.homepage-title {
+	margin-top: 160px;
+}
+
+.homepage-h1 {
+	font-size: 80px;
+	font-weight: 900;
+}
+
+.prompt-input {
+	width: 488px;
+	vertical-align: middle;
+}
+
+.submit-button {
+	vertical-align: middle;
+}
+
+/* PAGE STAGE 2 - THE COUNCIL */
