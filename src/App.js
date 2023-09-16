@@ -42,9 +42,8 @@ function CouncilMember(props, id) {
       onPointerOver={(event) => (event.stopPropagation(), hover(true))}
       onPointerOut={(event) => hover(false)}>
       <Suspense fallback={null}>
-        <Model pose={4} position={[0, 0, 0]} />
+        <Model position={[1, 0, 0]} />
       </Suspense>
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
     </mesh>
   )
 }
@@ -211,8 +210,8 @@ export default function App() {
           <ambientLight intensity={0.5} />
           <directionalLight position={[10, 10, 10]} angle={0.15} penumbra={1} castShadow shadow-mapSize={[2024, 2024]} />
           <pointLight position={[10, 0, 0]} />
-          <CouncilMember position={[-1.2, -1, 0]}/>
-          <CouncilMember position={[1.2, -1, 0]}/>
+          <CouncilMember position={[0, 0, 0]}/>
+          <CouncilMember position={[0, 0, 0]}/>
           <Shadows position={[0, 0, 0]} />
         </Canvas>
 			</div>
