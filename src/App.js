@@ -64,24 +64,7 @@ function Shadows(props) {
 
 //2D Components
 function CouncilCard(props) {
-	{
-		data &&
-			data.members &&
-			Array.isArray(data.members) &&
-			data.members.map((councilMember, index) => {
-				return (
-					<CouncilCard
-						key={index}
-						name={councilMember.name}
-						message={
-							councilMember.conversation[
-								councilMember.conversation.length - 1
-							].content
-						}
-					/>
-				);
-			});
-	}
+
 }
 
 export default function App() {
@@ -176,23 +159,26 @@ export default function App() {
 								? data.questions[data.questions.length - 1]
 								: "No query available"}
 						</Text>
-
 						<div className="council-cards">
 							{/* I CANNOT GET THIS TO UPDATE */}
-							{data.members.map((councilMember, index) => {
-								return (
-									<CouncilCard
-										key={index}
-										name={councilMember.name}
-										message={
-											councilMember.conversation[
-												councilMember.conversation
-													.length - 1
-											].content
-										}
-									/>
-								);
-							})}
+              {
+                data &&
+                  data.members &&
+                  Array.isArray(data.members) &&
+                  data.members.map((councilMember, index) => {
+                    return (
+                      <CouncilCard
+                        key={index}
+                        name={councilMember.name}
+                        message={
+                          councilMember.conversation[
+                            councilMember.conversation.length - 1
+                          ].content
+                        }
+                      />
+                    );
+                  })
+              }
 						</div>
 						<div className="council-reply-prompt">
 							<Input
