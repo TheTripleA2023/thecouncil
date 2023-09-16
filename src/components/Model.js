@@ -9,8 +9,14 @@ import React, { useEffect, useState, useMemo } from "react"
 import { useFBX } from "@react-three/drei";
 
 
-export default function Model() {
+export default function Model({ ...props }) {
     const fbx = useFBX("Cow.fbx");
 
-    return <primitive object={fbx} scale={0.01} />;
+    return (
+        <>
+          <group {...props} dispose={null}>
+            <primitive object={fbx} scale={0.01} />;
+          </group>
+        </>
+      )
 }

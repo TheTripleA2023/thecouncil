@@ -35,7 +35,7 @@ function CouncilTable(props, id) {
     click(!clicked)
   }
   
-  useFrame((state, delta) => (ref.current.rotation.y += delta))
+  useFrame((state, delta) => (ref.current.rotation.y += delta/4))
 
   // Return the view, these are regular Threejs elements expressed in JSX
   return (
@@ -47,10 +47,9 @@ function CouncilTable(props, id) {
       onPointerOver={(event) => (event.stopPropagation(), hover(true))}
       onPointerOut={(event) => hover(false)}>
       <Suspense fallback={null}>
-        {/* <Model pose={4} position={[0, 0, 0]} /> */}
         {/* <Frog position={[0, 0, 0]}/> */}
-        <Model position={[1, 0, 0]} />
-        <Table position={[0, 0, 0]} scale={0.1}/>
+        <Table position={[0, 0, 0]} scale={0.01}/>
+        <Model position={[0, 0, -1.4]} />
       </Suspense>
     </mesh>
   )
