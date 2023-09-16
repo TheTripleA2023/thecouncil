@@ -35,7 +35,10 @@ function CouncilTable(props, id) {
     click(!clicked)
   }
   
-  useFrame((state, delta) => (ref.current.rotation.y += delta/4))
+  useFrame((state, delta) => {(
+    ref.current.rotation.y += delta/4)
+  })
+
 	function pickCouncilMember() {
 		click(!clicked);
 	}
@@ -287,7 +290,7 @@ export default function App() {
           <ambientLight />
           <directionalLight castShadow intensity={0.01} position={[0, 0, 10]} />
           <group >
-            <CouncilTable position={[0, 2, 0]} scale={5.0}/>
+            <CouncilTable position={[0, 1, 0]} scale={5.0}/>
           </group>
         </Canvas>
 			</div>
