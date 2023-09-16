@@ -6,14 +6,13 @@ import {
 	Textarea,
 } from "@chakra-ui/react";
 import "./App.css";
-import { useRef, useState, Suspense} from 'react'
+import { useRef, useState, Suspense, useEffect} from 'react'
 import { Canvas, useFrame, useThree} from '@react-three/fiber'
 import * as React from 'react'
 import { AiOutlineCheck } from "react-icons/ai";
 import Model from "./components/Model.js"
-
-//Backend
 import GPTCouncil from './councilBackend/gptCouncil.js'
+
 
 const AIHandler = new GPTCouncil();
 
@@ -28,7 +27,6 @@ function CouncilMember(props, id) {
 
   function pickCouncilMember() {
     click(!clicked)
-    AIHandler.askTheCouncil("Hello, World!, Say it back")
   }
 
   // Return the view, these are regular Threejs elements expressed in JSX
@@ -41,7 +39,7 @@ function CouncilMember(props, id) {
       onPointerOver={(event) => (event.stopPropagation(), hover(true))}
       onPointerOut={(event) => hover(false)}>
       <Suspense fallback={null}>
-            <Model pose={4} position={[0, 0, 0]} />
+        <Model pose={4} position={[0, 0, 0]} />
       </Suspense>
       <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
     </mesh>
@@ -62,11 +60,15 @@ function Shadows(props) {
 
 //2D Components
 function CouncilCard(props) {
+
 	return (
 		<div className="council-card">
 			<Text className="council-card-message">{props.message}</Text>
 			<div className="council-card-member">
-				<div className="council-card-member-image"></div>
+        {/*  Cannot have 3js elements in a 2d component, so probably redundant?
+				<div className="council-card-member-image">
+        </div>
+      */}
 				<Text className="council-card-member-name">{props.name}</Text>
 			</div>
 		</div>
@@ -76,15 +78,21 @@ function CouncilCard(props) {
 export default function App() {
 	const [pageStage, setPageStage] = useState(0);
 	const [inputValue, setInputValue] = useState("");
+  const [data, setData] = useState(null);
+
   const ref = useRef()
 
 	const handleSubmit = () => {
-		setPageStage(1);
 		setInputValue(document.querySelector(".prompt-input").value);
+    if(inputValue === "") {return};
+    AIHandler.askTheCouncil(inputValue).then(setData(AIHandler.godJson)).then(setPageStage(1));
 	};
 
 	const handleReply = () => {
+    setInputValue(document.querySelector(".council-reply-prompt-input").value);
 		// TODO
+    if(inputValue === "") {return};
+    AIHandler.askTheCouncil(inputValue).then(setData(AIHandler.godJson)).then(setPageStage(1));
 	};
 
 	return (
@@ -141,28 +149,19 @@ export default function App() {
 							The Council says...
 						</Text>
 						<Text className="council-query-label">Your query:</Text>
-						<Text className="council-query">{inputValue}</Text>
-						<div className="council-cards">
-							<CouncilCard
-								name="The Starfish"
-								message="Go for it! Take this opportunity to reconnect and have a conversation. First, make sure to set some boundaries, express your feelings, and listen. This could be a chance to rebuild and create something even better than before!"
-							></CouncilCard>
-							<CouncilCard
-								name="The Hammerhead"
-								message="Do not go. Entertaining the idea of going over is unwise and potentially setting yourself up for disappointment or even heartbreak. Prioritize your emotional well-being by avoiding unnecessary complications from the past."
-							></CouncilCard>
-							<CouncilCard
-								name="The Tree Frog"
-								message="Absolutely go over! This is surely a sign that they can't resist your magnetic allure. Embrace the opportunity to reignite the passion and show them what they're missing!"
-							></CouncilCard>
-							<CouncilCard
-								name="The Bear"
-								message="Listen to your instincts and consider what you truly want. If meeting your ex aligns with your personal growth and happiness, go for it. However, if it feels like a step backwards, prioritize yourself and politely decline."
-							></CouncilCard>
-						</div>
-						<div className="coucil-reply-prompt">
+						<Text className="council-query">{data.questions[data.questions.length-1]}</Text>
+            <div className="council-cards">
+              {data.members.map((councilMember,index)=>{
+                  return <CouncilCard
+                    key={index}
+                    name= {councilMember.name}
+                    message= {councilMember.conversation[councilMember.conversation.length-1].content}
+                  />
+              })}
+            </div>
+						<div className="council-reply-prompt">
 							<Input
-								className="coucil-reply-prompt-input"
+								className="council-reply-prompt-input"
 								placeholder="I'm thinking about..."
 								style={{ width: "488px" }}
 								variant="filled"
