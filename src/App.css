@@ -6,7 +6,7 @@
 	margin: 0;
 	padding: 0;
 	height: 100vh;
-	/* font-family: "Plus Jakarta Sans", sans-serif; */
+	font-family: "Plus Jakarta Sans", sans-serif; 
 }
 
 /* PAGE STAGE 1 - HOMEPAGE */
@@ -94,7 +94,7 @@
 
 .council-card {
 	width: 590px;
-	height: 220px;
+    min-height: 220px;
 	padding: 20px;
 	border-radius: 16px;
 	background: linear-gradient(to bottom, #46537a, #203864);
@@ -121,11 +121,11 @@
 	margin-right: 10px;
 }
 
-.coucil-reply-prompt {
+.council-reply-prompt {
 	margin-top: 40px;
 }
 
-.coucil-reply-prompt-input {
+.council-reply-prompt-input {
 	min-width: 488px;
 	vertical-align: middle;
 	margin-right: 12px;
