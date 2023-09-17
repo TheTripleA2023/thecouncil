@@ -13,8 +13,13 @@ import { AiOutlineCheck } from "react-icons/ai";
 import Model from "./components/Model.js";
 import Frog from "./components/Frog";
 import Table from "./components/Table";
-import { Environment, Lightformer, OrbitControls, PivotControls } from '@react-three/drei'
-import { Image } from '@chakra-ui/react'
+import {
+	Environment,
+	Lightformer,
+	OrbitControls,
+	PivotControls,
+} from "@react-three/drei";
+import { Image } from "@chakra-ui/react";
 
 import theme from "./chakra-theme";
 
@@ -25,47 +30,79 @@ const AIHandler = new GPTCouncil();
 
 //3D Components
 function CouncilTable(props, id) {
-  // This reference gives us direct access to the THREE.Mesh object
-  const ref = useRef()
-  // Hold state for hovered and clicked events
-  const [hovered, hover] = useState(false)
-  const [clicked, click] = useState(false)
-
-  function pickCouncilMember() {
-    click(!clicked)
-  }
-  
-  useFrame((state, delta) => {(
-    ref.current.rotation.y += delta/4)
-  })
+	// This reference gives us direct access to the THREE.Mesh object
+	const ref = useRef();
+	// Hold state for hovered and clicked events
+	const [hovered, hover] = useState(false);
+	const [clicked, click] = useState(false);
 
 	function pickCouncilMember() {
 		click(!clicked);
 	}
 
-  // Return the view, these are regular Threejs elements expressed in JSX
-  return (
-    <mesh
-      {...props}
-      ref={ref}
-      scale={clicked ? 1.5 : 1}
-      onClick={(event) => pickCouncilMember() }
-      onPointerOver={(event) => (event.stopPropagation(), hover(true))}
-      onPointerOut={(event) => hover(false)}>
-      <Suspense fallback={null}>
-        {/* <Frog position={[0, 0, 0]}/> */}
-        <Table position={[0, 0, 0]} scale={0.012}/>
-        <Model position={[0, 0, -1.8]} scale={1.75} name="Panda" />
-        <Model position={[1.4, 0,  0]} rotation={[0, Math.PI/-2, 0]} name="Flamingo" />
-        <Model position={[0, 0, 1.4]} rotation={[0, Math.PI, 0]} name="Cat" />
-        <Model position={[-1.6, 0, 0]} rotation={[0, Math.PI/2, 0]} name="Platypus" />
-        <Model position={[-1, 0, -1]} scale={0.9} rotation={[0, Math.PI/4, 0]} name="Frog" />
-        <Model position={[1, 0, 1]} scale={0.8} rotation={[0, -3*Math.PI/4, 0]} name="Possum" />
-        <Model position={[-1.1, 0, 1.1]} rotation={[0, 3*Math.PI/4, 0]} name="Hornbill" />
-        <Model position={[1.4, 0, -1.4]} scale={1.2} rotation={[0, -Math.PI/4, 0]} name="Tiger" />
-      </Suspense>
-    </mesh>
-  );
+	useFrame((state, delta) => {
+		ref.current.rotation.y += delta / 4;
+	});
+
+	function pickCouncilMember() {
+		click(!clicked);
+	}
+
+	// Return the view, these are regular Threejs elements expressed in JSX
+	return (
+		<mesh
+			{...props}
+			ref={ref}
+			scale={clicked ? 1.5 : 1}
+			onClick={(event) => pickCouncilMember()}
+			onPointerOver={(event) => (event.stopPropagation(), hover(true))}
+			onPointerOut={(event) => hover(false)}
+		>
+			<Suspense fallback={null}>
+				{/* <Frog position={[0, 0, 0]}/> */}
+				<Table position={[0, 0, 0]} scale={0.012} />
+				<Model position={[0, 0, -1.8]} scale={1.75} name="Panda" />
+				<Model
+					position={[1.4, 0, 0]}
+					rotation={[0, Math.PI / -2, 0]}
+					name="Flamingo"
+				/>
+				<Model
+					position={[0, 0, 1.4]}
+					rotation={[0, Math.PI, 0]}
+					name="Cat"
+				/>
+				<Model
+					position={[-1.6, 0, 0]}
+					rotation={[0, Math.PI / 2, 0]}
+					name="Platypus"
+				/>
+				<Model
+					position={[-1, 0, -1]}
+					scale={0.9}
+					rotation={[0, Math.PI / 4, 0]}
+					name="Frog"
+				/>
+				<Model
+					position={[1, 0, 1]}
+					scale={0.8}
+					rotation={[0, (-3 * Math.PI) / 4, 0]}
+					name="Possum"
+				/>
+				<Model
+					position={[-1.1, 0, 1.1]}
+					rotation={[0, (3 * Math.PI) / 4, 0]}
+					name="Hornbill"
+				/>
+				<Model
+					position={[1.4, 0, -1.4]}
+					scale={1.2}
+					rotation={[0, -Math.PI / 4, 0]}
+					name="Tiger"
+				/>
+			</Suspense>
+		</mesh>
+	);
 }
 
 function Shadows(props) {
@@ -84,18 +121,16 @@ function Shadows(props) {
 
 //2D Components
 function CouncilCard(props) {
+	// console.log("card: " + props.message);
 	return (
 		<div className="council-card">
 			<Text className="council-card-message">{props.message}</Text>
 			<div className="council-card-member">
 				{/*  Cannot have 3js elements in a 2d component, so probably redundant?*/}
 				<div className="council-card-member-image">
-        <Image
-          borderRadius='full'
-          src='CatAvatar.png'
-        />
-        </div>
-     
+					<Image borderRadius="full" src="CatAvatar.png" />
+				</div>
+
 				<Text className="council-card-member-name">{props.name}</Text>
 			</div>
 		</div>
@@ -119,27 +154,24 @@ export default function App() {
 	// 		.then(setData(AIHandler.godJson))
 	// 		.then(setPageStage(1));
 	// };
+	console.log("rerender: ", data);
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		setInputValue(document.querySelector(".prompt-input").value);
 		if (inputValue === "") {
 			return;
 		}
 
 		setLoading(true); // Set loading to true before making the API call
-
-		AIHandler.askTheCouncil(inputValue)
-			.then((response) => {
-				setData(AIHandler.godJson);
-				setPageStage(1); // Move this line here to update the stage after receiving the response
-			})
-			.catch((error) => {
-				console.error("Error fetching data:", error);
-				// Handle the error here if needed
-			})
-			.finally(() => {
-				setLoading(false); // Set loading to false when the response is received
-			});
+		setPageStage(2);
+		const response = await AIHandler.askTheCouncil(inputValue);
+		console.log(response);
+		setData(AIHandler.godJson);
+		setPageStage(1);
+		console.log("test", AIHandler.godJson);
+		console.log(data); // Log the data once it's available
+		console.log("here");
+		setLoading(false); // Set loading to false when the response is received
 	};
 
 	const handleReply = () => {
@@ -276,7 +308,7 @@ export default function App() {
 					</div>
 				)}
 				{/* PAGE STAGE 3 - LOADING STAGE */}
-				{pageStage === 2 && (
+				{isLoading && (
 					<div className="council-content">
 						<Text className="council-title">
 							The Council is thinking...
@@ -285,64 +317,27 @@ export default function App() {
 						<Text className="council-query">{inputValue}</Text>
 					</div>
 				)}
-        <Canvas 
-          orthographic camera={{ position: [0, 5, 10], zoom: 100 }} 
-          style={{ pointerEvents: 'none' }}
-          // In order for two dom nodes to be able to receive events they must share
-          // the same source. By re-connecting the canvas to a parent that contains the
-          // text content as well as the canvas we do just that.
-          eventSource={ref}
-          eventPrefix="client">
-          <ambientLight />
-          <directionalLight castShadow intensity={0.01} position={[0, 0, 10]} />
-          <group >
-            <CouncilTable position={[0, 1, 0]} scale={5.0}/>
-          </group>
-        </Canvas>
+				<Canvas
+					orthographic
+					camera={{ position: [0, 5, 10], zoom: 100 }}
+					style={{ pointerEvents: "none" }}
+					// In order for two dom nodes to be able to receive events they must share
+					// the same source. By re-connecting the canvas to a parent that contains the
+					// text content as well as the canvas we do just that.
+					eventSource={ref}
+					eventPrefix="client"
+				>
+					<ambientLight />
+					<directionalLight
+						castShadow
+						intensity={0.01}
+						position={[0, 0, 10]}
+					/>
+					<group>
+						<CouncilTable position={[0, 1, 0]} scale={5.0} />
+					</group>
+				</Canvas>
 			</div>
 		</ChakraProvider>
 	);
 }
-
-/*
-export default function App() {
-  const ref = useRef()
-  return (
-    <ChakraProvider>
-      <div ref={ref} className="container">
-      <div className='text'>
-        <Text>In a dilemma?</Text>
-        <Text>Ask the council.</Text>
-
-        <div>
-          <Input placeholder="Enter prompt here."/>
-          <Button rightIcon={<AiOutlineCheck/>} variant='outline'>
-            OK
-          </Button>
-        </div>
-      </div>
-
-      </div>
-    </ChakraProvider>
-  )
-}
-
-
-				<Canvas
-          shadows
-          camera={{ position: [0, 0, 4] }}
-          style={{ pointerEvents: 'none' }}
-          // In order for two dom nodes to be able to receive events they must share
-          // the same source. By re-connecting the canvas to a parent that contains the
-          // text content as well as the canvas we do just that.
-          eventSource={ref}
-          eventPrefix="client">
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 10, 10]} angle={0.15} penumbra={1} castShadow shadow-mapSize={[2024, 2024]} />
-          <pointLight position={[10, 0, 0]} />
-          <CouncilMember position={[0, 0, 0]}/>
-          <CouncilMember position={[0, 0, 0]}/>
-          <Shadows position={[0, 0, 0]} />
-        </Canvas>
-
-*/
