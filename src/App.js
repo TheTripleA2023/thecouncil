@@ -120,56 +120,44 @@ function CouncilCard(props) {
 export default function App() {
 	const [pageStage, setPageStage] = useState(0);
 	const [inputValue, setInputValue] = useState("");
+	const [replyValue, setReplyValue] = useState("");
 	const [data, setData] = useState(null);
 	const [isLoading, setLoading] = useState(false);
 
 	const ref = useRef();
-
-	// const handleSubmit = () => {
-	// 	setInputValue(document.querySelector(".prompt-input").value);
-	// 	if (inputValue === "") {
-	// 		return;
-	// 	}
-	// 	AIHandler.askTheCouncil(inputValue)
-	// 		.then(setData(AIHandler.godJson))
-	// 		.then(setPageStage(1));
-	// };
-	console.log("rerender: ", data);
 
 	const handleSubmit = async () => {
 		setInputValue(document.querySelector(".prompt-input").value);
 		if (inputValue === "") {
 			return;
 		}
-
-		setLoading(true); // Set loading to true before making the API call
-		setPageStage(2);
+		setLoading(true);
+		setPageStage(3);
 		const response = await AIHandler.askTheCouncil(inputValue);
 		console.log(response);
 		setData(AIHandler.godJson);
 		setPageStage(1);
-		console.log("test", AIHandler.godJson);
-		console.log(data); // Log the data once it's available
-		console.log("here");
-		setLoading(false); // Set loading to false when the response is received
+		setLoading(false);
 	};
 
-	const handleReply = () => {
-		setInputValue(document.querySelector(".prompt-input").value);
-		if (inputValue === "") {
+	const handleReply = async () => {
+		setReplyValue(
+			document.querySelector(".council-reply-prompt-input").value
+		);
+		if (replyValue === "") {
 			return;
 		}
+		setLoading(true);
+		setPageStage(3);
+		const response = await AIHandler.askTheCouncil(replyValue);
+		console.log(response);
+		setData(AIHandler.godJson);
+		setPageStage(1);
+		setLoading(false);
+	};
 
-		setLoading(true); // Set loading to true before making the API call
-
-		AIHandler.askTheCouncil(inputValue)
-			.then((response) => {
-				setData(AIHandler.godJson);
-				setPageStage(1);
-			})
-			.finally(() => {
-				setLoading(false); // Set loading to false when the response is received
-			});
+	const handleDone = () => {
+		setPageStage(2);
 	};
 
 	return (
@@ -285,9 +273,22 @@ export default function App() {
 								OK
 							</Button>
 						</div>
+						<Text className="done-text" onClick={handleDone}>
+							No thanks, I’m all done!
+						</Text>
 					</div>
 				)}
 				{/* PAGE STAGE 3 - LOADING STAGE */}
+				{pageStage === 2 && (
+					<div className="end-content">
+						<div className="end-title">
+							<Text className="end-h1">
+								The Council thanks you!
+							</Text>
+						</div>
+					</div>
+				)}
+				{/* LOADING STAGE */}
 				{isLoading && (
 					<div className="council-content">
 						<Text className="council-title">
