@@ -13,18 +13,18 @@ import * as React from "react";
 import { AiOutlineCheck } from "react-icons/ai";
 import Model from "./components/Model.js";
 import Table from "./components/Table";
-import Disco from "./components/Disco"
-import DotsGif from "./images/dots-same-time.gif"
+import Disco from "./components/Disco";
+import DotsGif from "./images/dots-same-time.gif";
 import {
 	Environment,
 	Lightformer,
 	OrbitControls,
 	PivotControls,
 } from "@react-three/drei";
-import Dots from "./components/Dots"
+import Dots from "./components/Dots";
 import { Image } from "@chakra-ui/react";
 import theme from "./chakra-theme";
-import { Wrap, WrapItem, Center} from '@chakra-ui/react'
+import { Wrap, WrapItem, Center } from "@chakra-ui/react";
 
 //Backend
 import GPTCouncil from "./councilBackend/gptCouncil.js";
@@ -179,8 +179,26 @@ function CouncilCard(props) {
 					<Image borderRadius="full" src={props.imagePath} />
 				</div>
 
-				<Text className="council-card-member-name">{props.name}</Text>
+				<Text className="council-card-member-name">
+					The {props.name}
+				</Text>
 			</div>
+		</div>
+	);
+}
+
+function UserMessage(props) {
+	return (
+		<div className="user-message-blob">
+			<Text className="council-card-message">{props.message}</Text>
+		</div>
+	);
+}
+
+function MemberMessage(props) {
+	return (
+		<div className="member-message-blob">
+			<Text className="council-card-message">{props.message}</Text>
 		</div>
 	);
 }
@@ -194,6 +212,7 @@ export default function App() {
 	const [isLoading, setLoading] = useState(false);
 	const [memberName, setMemberName] = useState("");
 	const [memberPic, setMemberPic] = useState("");
+	const [memberConvo, setMemberConvo] = useState([]);
 
 	const ref = useRef();
 
@@ -216,7 +235,6 @@ export default function App() {
 		setLoading(false);
 	};
 
-
 	const handleReply = async () => {
 		setReplyValue(
 			document.querySelector(".council-reply-prompt-input").value
@@ -233,12 +251,17 @@ export default function App() {
 		setLoading(false);
 	};
 
-	const handleMoreDetails = (memberName) => {
+	const handleMoreDetails = (memberName, index) => {
 		setMemberName(memberName);
 		setdetailsPageBool(true);
-		console.log(detailsPageBool);
+		setMemberConvo(data.members[index].conversation);
+		setMemberPic(data.members[index].imagePath);
 		console.log(memberName);
-		console.log("AHHHHHHHHH");
+		console.log(data.members[index].conversation);
+	};
+
+	const handleClose = () => {
+		setdetailsPageBool(false);
 	};
 
 	const handleCouncilClick = (index) => {
@@ -347,8 +370,14 @@ export default function App() {
 								data.members.map((councilMember, index) => (
 									<CouncilCard
 										key={index}
-										name={"The " + councilMember.name}
-                    					imagePath={councilMember.imagePath}
+										name={councilMember.name}
+										imagePath={councilMember.imagePath}
+										onCardClick={() =>
+											handleMoreDetails(
+												councilMember.name,
+												index
+											)
+										}
 										message={
 											councilMember.conversation &&
 											councilMember.conversation.length
@@ -406,22 +435,52 @@ export default function App() {
 				)}
 				{/* POP UP MORE DETAILS */}
 				{detailsPageBool && (
-					<div className="pop-up-content">
-						<Text className="council-title">
-							The {memberName} says...
-						</Text>
-						<Text className="council-query-label">
-							Here’s what Council Member {memberName} had to say
-							so far.
-						</Text>
-						<div>
-							<Image
-								src="../public/" // Replace with the actual path to your image
-								alt="Council Member Image" // Add an appropriate alt text
-								boxSize="200px" // Adjust the image size as needed
-								objectFit="cover" // Adjust the object fit style as needed
-							/>
-							<div>CONVERSATION GOES HERE</div>
+					<div>
+						<div className="overlay"></div>
+						<div className="pop-up-content">
+							<Text className="pop-up-title">
+								The {memberName} says...
+							</Text>
+							<button
+								className="close-button"
+								onClick={handleClose}
+							>
+								<span className="close-icon">&times;</span>
+							</button>
+							<Text className="pop-up-subtitle">
+								Here’s what Council Member {memberName} had to
+								say so far.
+							</Text>
+							<div className="pop-up-image-convo">
+								<Image
+									className="pop-up-image"
+									src={memberPic} // Replace with the actual path to your image
+									alt="Council Member Image" // Add an appropriate alt text
+									boxSize="200px" // Adjust the image size as needed
+									objectFit="cover" // Adjust the object fit style as needed
+								/>
+								<div className="pop-up-convo">
+									{memberConvo.map((message, index) => {
+										if (index % 2 === 0) {
+											// Even index, render UserMessage
+											return (
+												<UserMessage
+													key={index}
+													message={message.content}
+												/>
+											);
+										} else {
+											// Odd index, render MemberMessage
+											return (
+												<MemberMessage
+													key={index}
+													message={message.content}
+												/>
+											);
+										}
+									})}
+								</div>
+							</div>
 						</div>
 					</div>
 				)}
@@ -433,20 +492,20 @@ export default function App() {
 						</Text>
 						<Text className="council-query-label">Your query:</Text>
 						<Text className="council-query">{inputValue}</Text>
-						<Image className="dots-gif" src={DotsGif}/>
+						<Image className="dots-gif" src={DotsGif} />
 					</div>
 				)}
 				{/* PAGE STAGE 3 - COUNCIL SELECT */}
 				{pageStage === 3 && !isLoading && (
 					<div className="homepage-content">
-						<div className="homepage-title" >
+						<div className="homepage-title">
 							<Text className="homepage-h1">
 								Choose your Council Members
 							</Text>
 							<Center>
-							<Text className="homepage-gradient-text">
-								Choose 4 members for your Council
-							</Text>
+								<Text className="homepage-gradient-text">
+									Choose 4 members for your Council
+								</Text>
 							</Center>
 						</div>
 						<Center margin={'1em'}>
@@ -475,7 +534,7 @@ export default function App() {
 						>
 							OK
 						</Button>
-					</div>	
+					</div>
 				)}
 				<Canvas
 					orthographic
