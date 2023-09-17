@@ -294,6 +294,16 @@ body {
 	font-size: 64px;
 	font-weight: 900;
 	color: #ffffff;
+
+	/* top: 200px; */
+	padding-top: 200px;
+	padding-bottom: 20px;
+}
+
+.end-h2 {
+	font-size: 24px;
+	font-weight: 900;
+	color: #ffffff;
 }
 
 .end-content {
@@ -302,7 +312,22 @@ body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	background-image: url("./images/TYBG1.png");
+	/* background-image: url("./images/TYBG1.png");
 	background-size: cover;
-	background-repeat: no-repeat;
+	background-repeat: no-repeat; */
+}
+
+.refresh-button {
+	display: inline-flex;
+	height: 48px;
+	padding: 0px 24px;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	flex-shrink: 0;
+
+	border-radius: 6px;
+	background: var(--Blue-Gradient, linear-gradient(99deg, #12E9F1 0%, #BF7FEA 100%));
+
+	margin-top: 16px;
 }
