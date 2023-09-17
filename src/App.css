@@ -52,6 +52,15 @@ body {
 	margin-top: 36px;
 }
 
+.council-button {
+	display: flex;
+	align-items: center;
+	margin-top: 36px;
+	color: transparent;
+	margin-left: 16px;
+	height:100%;
+}
+
 .prompt-input {
 	min-width: 488px;
 	vertical-align: middle;
@@ -165,6 +174,16 @@ body {
 	color: #ffffff;
 	font-size: 16px;
 }
+
+.council-member-portfolio {
+	width: 200px;
+	min-height: 200px;
+	padding: 20px;
+	border-radius: 16px;
+	color: #ffffff;
+	font-size: 16px;
+}
+
 
 .council-card-message {
 	margin-bottom: 20px;

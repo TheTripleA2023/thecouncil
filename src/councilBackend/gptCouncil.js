@@ -2,7 +2,7 @@ import OpenAI from "openai";
 
 const model = "gpt-3.5-turbo";
 
-const TrialMembers = [
+export const TrialMembers = [
 	{
 		name: "Platypus",
 		settings:
