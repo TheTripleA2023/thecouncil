@@ -213,6 +213,7 @@ export default function App() {
 	const [memberName, setMemberName] = useState("");
 	const [memberPic, setMemberPic] = useState("");
 	const [memberConvo, setMemberConvo] = useState([]);
+	const [councilList, setCouncilList] = useState([]);
 
 	const ref = useRef();
 
@@ -265,7 +266,24 @@ export default function App() {
 	};
 
 	const handleCouncilClick = (index) => {
-		console.log("LOLOL");
+		console.log(index);
+
+		if(councilList.includes(index)){
+			setCouncilList(councilList.filter((item) => item !== index));
+			return;
+		} else if(councilList.length === 4) {
+			return;
+		} else {
+			setCouncilList([...councilList, index]);
+		}
+		
+	};
+
+	const handleCouncilSelect = (index) => {
+		console.log(index);
+		AIHandler.setCouncilMembers(councilList);
+		setPageStage(0);
+
 	};
 
 	const handleDone = () => {
@@ -535,47 +553,28 @@ export default function App() {
 								</Text>
 							</Center>
 						</div>
-						<Center margin={"1em"}>
-							<Wrap spacing="1em" justify="center">
-								{TrialMembers.map((councilMember, index) => (
-									<WrapItem key={index}>
-										<Center
-											w="220px"
-											h="280px"
-											bg="blackAlpha.500"
-											className="council-member-portfolio"
-										>
-											<div onClick={handleCouncilClick}>
-												<Image
-													borderRadius="full"
-													src={
-														councilMember.imagePath
-													}
-													padding={"1em"}
-												/>
-												<Text>
-													<b>
-														{"The " +
-															councilMember.name}
-													</b>
-												</Text>
-												<Text>
-													{councilMember.type}
-												</Text>
-											</div>
-										</Center>
-									</WrapItem>
-								))}
+						<Center margin={'1em'}>
+							<Wrap spacing='1em' justify='center'> 
+							{TrialMembers.map((councilMember, index) => (
+								<WrapItem key={index}>
+									<Center w='220px' h='280px' bg='blackAlpha.500' className="council-member-portfolio" border={councilList.includes(index)?'8px':'0px'} borderColor={"#9EFD69"} animation={'ease-in'}>
+										<div onClick={() => handleCouncilClick(index)}>
+											<Image borderRadius="full" src={councilMember.imagePath} padding={'1em'}/>
+											<Text><b>{"The " + councilMember.name}</b></Text>
+											<Text>{councilMember.type}</Text>
+										</div>
+									</Center>
+								</WrapItem>
+							))}
 							</Wrap>
 						</Center>
-
 						<Button
 							className="submit-button"
 							colorScheme="teal"
 							rightIcon={<AiOutlineCheck />}
 							variant="solid"
 							ml={2} // Add margin-left to create space between the input and button
-							onClick={handleSubmit} // Call the handleSubmit function on button click
+							onClick={handleCouncilSelect} // Call the handleSubmit function on button click
 						>
 							OK
 						</Button>
