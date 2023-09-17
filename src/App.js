@@ -481,13 +481,23 @@ export default function App() {
 					</div>
 				)}
 				{/* LOADING STAGE */}
-				{isLoading && (
+				{isLoading && replyValue === "" && (
 					<div className="council-content">
 						<Text className="council-title">
 							The Council is thinking...
 						</Text>
 						<Text className="council-query-label">You said:</Text>
 						<Text className="council-query">{inputValue}</Text>
+						<Image className="dots-gif" src={DotsGif} />
+					</div>
+				)}
+				{isLoading && replyValue !== "" && (
+					<div className="council-content">
+						<Text className="council-title">
+							The Council is thinking...
+						</Text>
+						<Text className="council-query-label">You said:</Text>
+						<Text className="council-query">{replyValue}</Text>
 						<Image className="dots-gif" src={DotsGif} />
 					</div>
 				)}
