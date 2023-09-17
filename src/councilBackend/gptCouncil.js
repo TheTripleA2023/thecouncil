@@ -76,7 +76,7 @@ const TrialMembers = [
 		conversation: [],
 	},
 	{
-		name: "The Frog",
+		name: "Frog",
 		settings:
 			"You’re sitting on a council of different perspectives, ready to give your opinion on the user's problem or question. You give very passionately crazy answers to the problem. You do not think through the consequences of an idea. Your response should be no longer than 50 words.",
 		type: "Confidently Chaotic",
