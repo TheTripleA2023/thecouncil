@@ -264,6 +264,10 @@ export default function App() {
 		setdetailsPageBool(false);
 	};
 
+	const handleCouncilClick = (index) => {
+		console.log("LOLOL");
+	};
+
 	const handleDone = () => {
 		setPageStage(2);
 	};
@@ -514,20 +518,19 @@ export default function App() {
 								</Text>
 							</Center>
 						</div>
-						<Center margin={"1em"}>
-							<Wrap spacing="1em" justify="center">
-								{TrialMembers.map((councilMember, index) => (
-									<WrapItem>
-										<Center
-											w="250px"
-											h="350px"
-											bg="blackAlpha.500"
-											className="council-member-portfolio"
-										>
-											Box 5
-										</Center>
-									</WrapItem>
-								))}
+						<Center margin={'1em'}>
+							<Wrap spacing='1em' justify='center'> 
+							{TrialMembers.map((councilMember, index) => (
+								<WrapItem key={index}>
+									<Center w='220px' h='280px' bg='blackAlpha.500' className="council-member-portfolio">
+										<div onClick={handleCouncilClick}>
+											<Image borderRadius="full" src={councilMember.imagePath} padding={'1em'}/>
+											<Text><b>{"The " + councilMember.name}</b></Text>
+											<Text>{councilMember.type}</Text>
+										</div>
+									</Center>
+								</WrapItem>
+							))}
 							</Wrap>
 						</Center>
 
