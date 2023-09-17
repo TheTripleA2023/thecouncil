@@ -44,7 +44,7 @@ function CouncilTable(props, id) {
 		<mesh
 			{...props}
 			ref={ref}
-			scale={clicked ? 1.5 : 1}
+			scale={ 1.25}
 			onClick={(event) => pickCouncilMember()}
 			onPointerOver={(event) => (event.stopPropagation(), hover(true),pickCouncilMember())}
 			onPointerOut={(event) => hover(false)}
