@@ -11,17 +11,11 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as React from "react";
 import { AiOutlineCheck } from "react-icons/ai";
 import Model from "./components/Model.js";
-import Frog from "./components/Frog";
 import Table from "./components/Table";
-import {
-	Environment,
-	Lightformer,
-	OrbitControls,
-	PivotControls,
-} from "@react-three/drei";
 import { Image } from "@chakra-ui/react";
-
+import { Html } from "@react-three/drei";
 import theme from "./chakra-theme";
+import Blob1 from "./components/Blob1";
 
 //Backend
 import GPTCouncil from "./councilBackend/gptCouncil.js";
@@ -35,18 +29,6 @@ function CouncilTable(props, id) {
 	// Hold state for hovered and clicked events
 	const [hovered, hover] = useState(false);
 	const [clicked, click] = useState(false);
-
-	function pickCouncilMember() {
-		click(!clicked);
-	}
-
-	useFrame((state, delta) => {
-		ref.current.rotation.y += delta / 4;
-	});
-
-	function pickCouncilMember() {
-		click(!clicked);
-	}
 
 	useFrame((state, delta) => {
 		ref.current.rotation.y += delta / 4;
@@ -63,7 +45,9 @@ function CouncilTable(props, id) {
 			ref={ref}
 			scale={clicked ? 1.5 : 1}
 			onClick={(event) => pickCouncilMember()}
-			onPointerOver={(event) => (event.stopPropagation(), hover(true))}
+			onPointerOver={(event) => (
+				event.stopPropagation(), hover(true), pickCouncilMember()
+			)}
 			onPointerOut={(event) => hover(false)}
 		>
 			<Suspense fallback={null}>
@@ -113,20 +97,6 @@ function CouncilTable(props, id) {
 	);
 }
 
-function Shadows(props) {
-	const { viewport } = useThree();
-	return (
-		<mesh
-			receiveShadow
-			scale={[viewport.width, viewport.height, 1]}
-			{...props}
-		>
-			<planeGeometry />
-			<shadowMaterial transparent opacity={0.5} />
-		</mesh>
-	);
-}
-
 //2D Components
 function CouncilCard(props) {
 	// console.log("card: " + props.message);
@@ -136,7 +106,7 @@ function CouncilCard(props) {
 			<div className="council-card-member">
 				{/*  Cannot have 3js elements in a 2d component, so probably redundant?*/}
 				<div className="council-card-member-image">
-					<Image borderRadius="full" src="CatAvatar.png" />
+					<Image borderRadius="full" src={props.imagePath} />
 				</div>
 
 				<Text className="council-card-member-name">{props.name}</Text>
@@ -204,7 +174,7 @@ export default function App() {
 							<Text className="homepage-h1">
 								Consult
 								<span className="homepage-gradient-text">
-									the council.
+									the Council.
 								</span>
 							</Text>
 						</div>
@@ -238,7 +208,6 @@ export default function App() {
 								OK
 							</Button>
 						</div>
-
 						<Text className="homepage-text homepage-text-1">
 							"my roommates hate me"
 						</Text>
@@ -276,6 +245,7 @@ export default function App() {
 									<CouncilCard
 										key={index}
 										name={councilMember.name}
+										imagePath={councilMember.imagePath}
 										message={
 											councilMember.conversation &&
 											councilMember.conversation.length
