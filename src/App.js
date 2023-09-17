@@ -7,7 +7,7 @@ import {
 	Textarea,
 } from "@chakra-ui/react";
 import "./App.css";
-import { useRef, useState, Suspense } from "react";
+import { useRef, useState, Suspense, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as React from "react";
 import { AiOutlineCheck } from "react-icons/ai";
@@ -25,6 +25,8 @@ import BlueFloor from "./images/Bluefloor.svg"
 import GreenFloor from "./images/Greenfloor.svg"
 import PinkFloor from "./images/Pinkfloor.svg"
 
+import Animals from "./images/Animals.png"
+
 import {
 	Environment,
 	Lightformer,
@@ -35,6 +37,7 @@ import Dots from "./components/Dots";
 import { Image } from "@chakra-ui/react";
 import theme from "./chakra-theme";
 import { Wrap, WrapItem, Center } from "@chakra-ui/react";
+import "intersection-observer";
 
 //Backend
 import GPTCouncil from "./councilBackend/gptCouncil.js";
@@ -119,59 +122,6 @@ function CouncilTable(props, id) {
 				</Suspense>
 			</mesh>
 		</mesh>
-		// <mesh
-		// 	{...props}
-		// 	ref={ref}
-		// 	scale={clicked ? 1.5 : 1}
-		// 	onClick={(event) => pickCouncilMember()}
-		// 	onPointerOver={(event) => (event.stopPropagation(), hover(true))}
-		// 	onPointerOut={(event) => hover(false)}
-		// >
-		// 	<Suspense fallback={null}>
-		// 		{/* <Frog position={[0, 0, 0]}/> */}
-		// 		{/* <Dots position={[-0.45, 1, 0]} scale={0.01}/> */}
-		// 		<Table position={[0, 0, 0]} scale={0.012} />
-		// 		<Model position={[0, 0, -1.8]} scale={1.75} name="Panda" />
-		// 		<Model
-		// 			position={[1.4, 0, 0]}
-		// 			rotation={[0, Math.PI / -2, 0]}
-		// 			name="Flamingo"
-		// 		/>
-		// 		<Model
-		// 			position={[0, 0, 1.4]}
-		// 			rotation={[0, Math.PI, 0]}
-		// 			name="Cat"
-		// 		/>
-		// 		<Model
-		// 			position={[-1.6, 0, 0]}
-		// 			rotation={[0, Math.PI / 2, 0]}
-		// 			name="Platypus"
-		// 		/>
-		// 		<Model
-		// 			position={[-1, 0, -1]}
-		// 			scale={0.9}
-		// 			rotation={[0, Math.PI / 4, 0]}
-		// 			name="Frog"
-		// 		/>
-		// 		<Model
-		// 			position={[1, 0, 1]}
-		// 			scale={0.8}
-		// 			rotation={[0, (-3 * Math.PI) / 4, 0]}
-		// 			name="Possum"
-		// 		/>
-		// 		<Model
-		// 			position={[-1.1, 0, 1.1]}
-		// 			rotation={[0, (3 * Math.PI) / 4, 0]}
-		// 			name="Hornbill"
-		// 		/>
-		// 		<Model
-		// 			position={[1.4, 0, -1.4]}
-		// 			scale={1.2}
-		// 			rotation={[0, -Math.PI / 4, 0]}
-		// 			name="Tiger"
-		// 		/>
-		// 	</Suspense>
-		// </mesh>
 	);
 }
 
@@ -491,6 +441,7 @@ export default function App() {
 
 							<Image className="disco-gif" src={DiscoGif}/>
 							<Image className="green-floor" src={GreenFloor}/>
+							<Image className="animals" src={Animals}/>
 						</div>
 					</div>
 				)}
