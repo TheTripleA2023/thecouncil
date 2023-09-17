@@ -52,6 +52,15 @@ body {
 	margin-top: 36px;
 }
 
+.council-button {
+	display: flex;
+	align-items: center;
+	margin-top: 36px;
+	color: transparent;
+	margin-left: 16px;
+	height:100%;
+}
+
 .prompt-input {
 	min-width: 488px;
 	vertical-align: middle;
@@ -79,44 +88,44 @@ body {
 }
 
 .homepage-text-1 {
-	position: absolute;
-	top: 456px;
-	left: 218px;
-	border-radius: 16px 16px 16px 0px;
+    position: absolute;
+    top: 375px;
+    left: 218px;
+    border-radius: 16px 16px 16px 0px;
 }
 
 .homepage-text-2 {
-	position: absolute;
-	top: 600px;
-	left: 180px;
-	border-radius: 16px 16px 0px 16px;
+    position: absolute;
+    top: 520px;
+    left: 180px;
+    border-radius: 16px 16px 0px 16px;
 }
 
 .homepage-text-3 {
-	position: absolute;
-	top: 750px;
-	left: 250px;
-	border-radius: 16px 16px 16px 0px;
+    position: absolute;
+    top: 670px;
+    left: 250px;
+    border-radius: 16px 16px 16px 0px;
 }
 
 .homepage-text-4 {
-	position: absolute;
-	top: 480px;
-	left: 920px;
-	border-radius: 16px 16px 0px 16px;
+    position: absolute;
+    top: 400px;
+    left: 920px;
+    border-radius: 16px 16px 0px 16px;
 }
 
 .homepage-text-5 {
-	position: absolute;
-	top: 660px;
-	left: 940px;
-	border-radius: 16px 16px 16px 0px;
+    position: absolute;
+    top: 580px;
+    left: 940px;
+    border-radius: 16px 16px 16px 0px;
 }
 
 .dots-gif {
-	width: 20%;
+	width: 10%;
 	position: absolute;
-	top: 380px;
+	top: 130px;
 	justify-content: center;
 	z-index: 10;
 }
@@ -165,6 +174,16 @@ body {
 	color: #ffffff;
 	font-size: 16px;
 }
+
+.council-member-portfolio {
+	width: 200px;
+	min-height: 200px;
+	padding: 20px;
+	border-radius: 16px;
+	color: #ffffff;
+	font-size: 16px;
+}
+
 
 .council-card-message {
 	margin-bottom: 20px;
@@ -350,7 +369,7 @@ body {
 	display: inline-block;
 }
 
-/* PAGE STAGE 3 - LOADING STAGE */
+/* PAGE STAGE 3 - END STAGE */
 .end-title {
 	text-align: center;
 }
@@ -358,4 +377,15 @@ body {
 	font-size: 64px;
 	font-weight: 900;
 	color: #ffffff;
+}
+
+.end-content {
+	/* padding: 0em; */
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-image: url("./images/TYBG1.png");
+	background-size: cover;
+	background-repeat: no-repeat;
 }
