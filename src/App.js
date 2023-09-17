@@ -24,18 +24,17 @@ import { TrialMembers } from "./councilBackend/gptCouncil.js";
 
 const AIHandler = new GPTCouncil();
 
-
 //3D Components
 function CouncilTable(props, id) {
-  // This reference gives us direct access to the THREE.Mesh object
-  const ref = useRef()
-  // Hold state for hovered and clicked events
-  const [hovered, hover] = useState(false)
-  const [clicked, click] = useState(false)
+	// This reference gives us direct access to the THREE.Mesh object
+	const ref = useRef();
+	// Hold state for hovered and clicked events
+	const [hovered, hover] = useState(false);
+	const [clicked, click] = useState(false);
 
-  useFrame((state, delta) => {
-    ref.current.rotation.y += delta/4
-  })
+	useFrame((state, delta) => {
+		ref.current.rotation.y += delta / 4;
+	});
 
 	function pickCouncilMember() {
 		click(!clicked);
@@ -46,58 +45,59 @@ function CouncilTable(props, id) {
 		<mesh>
 			{/* <Dots position={[0, 3, 0]} rotation={[0, Math.PI / -2, 0]} scale={0.02}/> */}
 			<mesh
-			{...props}
-			ref={ref}
-			scale={1.25}
-			onClick={(event) => pickCouncilMember()}
-			onPointerOver={(event) => (event.stopPropagation(), hover(true),pickCouncilMember())}
-			onPointerOut={(event) => hover(false)}
-		>
-      
-			<Suspense fallback={null}>
-				{/* <Frog position={[0, 0, 0]}/> */}
-				<Table position={[0, 0, 0]} scale={0.012} />
-				<Model position={[0, 0, -1.8]} scale={1.75} name="Panda" />
-				<Model
-					position={[1.4, 0, 0]}
-					rotation={[0, Math.PI / -2, 0]}
-					name="Flamingo"
-				/>
-				<Model
-					position={[0, 0, 1.4]}
-					rotation={[0, Math.PI, 0]}
-					name="Cat"
-				/>
-				<Model
-					position={[-1.6, 0, 0]}
-					rotation={[0, Math.PI / 2, 0]}
-					name="Platypus"
-				/>
-				<Model
-					position={[-1, 0, -1]}
-					scale={0.9}
-					rotation={[0, Math.PI / 4, 0]}
-					name="Frog"
-				/>
-				<Model
-					position={[1, 0, 1]}
-					scale={0.8}
-					rotation={[0, (-3 * Math.PI) / 4, 0]}
-					name="Possum"
-				/>
-				<Model
-					position={[-1.1, 0, 1.1]}
-					rotation={[0, (3 * Math.PI) / 4, 0]}
-					name="Hornbill"
-				/>
-				<Model
-					position={[1.4, 0, -1.4]}
-					scale={1.2}
-					rotation={[0, -Math.PI / 4, 0]}
-					name="Tiger"
-				/>
-			</Suspense>
-		</mesh>
+				{...props}
+				ref={ref}
+				scale={1.25}
+				onClick={(event) => pickCouncilMember()}
+				onPointerOver={(event) => (
+					event.stopPropagation(), hover(true), pickCouncilMember()
+				)}
+				onPointerOut={(event) => hover(false)}
+			>
+				<Suspense fallback={null}>
+					{/* <Frog position={[0, 0, 0]}/> */}
+					<Table position={[0, 0, 0]} scale={0.012} />
+					<Model position={[0, 0, -1.8]} scale={1.75} name="Panda" />
+					<Model
+						position={[1.4, 0, 0]}
+						rotation={[0, Math.PI / -2, 0]}
+						name="Flamingo"
+					/>
+					<Model
+						position={[0, 0, 1.4]}
+						rotation={[0, Math.PI, 0]}
+						name="Cat"
+					/>
+					<Model
+						position={[-1.6, 0, 0]}
+						rotation={[0, Math.PI / 2, 0]}
+						name="Platypus"
+					/>
+					<Model
+						position={[-1, 0, -1]}
+						scale={0.9}
+						rotation={[0, Math.PI / 4, 0]}
+						name="Frog"
+					/>
+					<Model
+						position={[1, 0, 1]}
+						scale={0.8}
+						rotation={[0, (-3 * Math.PI) / 4, 0]}
+						name="Possum"
+					/>
+					<Model
+						position={[-1.1, 0, 1.1]}
+						rotation={[0, (3 * Math.PI) / 4, 0]}
+						name="Hornbill"
+					/>
+					<Model
+						position={[1.4, 0, -1.4]}
+						scale={1.2}
+						rotation={[0, -Math.PI / 4, 0]}
+						name="Tiger"
+					/>
+				</Suspense>
+			</mesh>
 		</mesh>
 		// <mesh
 		// 	{...props}
@@ -155,13 +155,14 @@ function CouncilTable(props, id) {
 	);
 }
 
-
-
 //2D Components
 function CouncilCard(props) {
-	// console.log("card: " + props.message);
+	const handleClick = () => {
+		// Call the handleMoreDetails function to show the pop-up
+		props.onCardClick();
+	};
 	return (
-		<div className="council-card">
+		<div className="council-card" onClick={handleClick}>
 			<Text className="council-card-message">{props.message}</Text>
 			<div className="council-card-member">
 				{/*  Cannot have 3js elements in a 2d component, so probably redundant?*/}
@@ -179,8 +180,11 @@ export default function App() {
 	const [pageStage, setPageStage] = useState(0);
 	const [inputValue, setInputValue] = useState("");
 	const [replyValue, setReplyValue] = useState("");
+	const [detailsPageBool, setdetailsPageBool] = useState(false);
 	const [data, setData] = useState(null);
 	const [isLoading, setLoading] = useState(false);
+	const [memberName, setMemberName] = useState("");
+	const [memberPic, setMemberPic] = useState("");
 
 	const ref = useRef();
 
@@ -218,6 +222,14 @@ export default function App() {
 		setData(AIHandler.godJson);
 		setPageStage(1);
 		setLoading(false);
+	};
+
+	const handleMoreDetails = (memberName) => {
+		setMemberName(memberName);
+		setdetailsPageBool(true);
+		console.log(detailsPageBool);
+		console.log(memberName);
+		console.log("AHHHHHHHHH");
 	};
 
 	const handleDone = () => {
@@ -270,21 +282,36 @@ export default function App() {
 							</Button>
 						</div>
 
-						<Image className="dots-gif" src={DotsGif}/>
+						<Image className="dots-gif" src={DotsGif} />
 
-            <div className="council-prompt">
-				<Button
-					size={"sm"}
-					className="submit-button"
-					colorScheme="teal"
-					variant="outline"
-					ml={2} // Add margin-left to create space between the input and button
-					onClick={enterCouncilSelect} // Call the handleSubmit function on button click
-					margin={"1em"}
-				>
-					Customize your Council
-				</Button>
-            </div>
+						<div className="council-prompt">
+							<Button
+								size={"sm"}
+								className="submit-button"
+								colorScheme="teal"
+								variant="outline"
+								ml={2} // Add margin-left to create space between the input and button
+								onClick={enterCouncilSelect} // Call the handleSubmit function on button click
+								margin={"1em"}
+							>
+								Customize your Council
+							</Button>
+						</div>
+						<Text className="homepage-text homepage-text-1">
+							"my roommates hate me"
+						</Text>
+						<Text className="homepage-text homepage-text-2">
+							"do I text my ex back"
+						</Text>
+						<Text className="homepage-text homepage-text-3">
+							"how often should I be showering"
+						</Text>
+						<Text className="homepage-text homepage-text-4">
+							"does pineapple go on pizza"
+						</Text>
+						<Text className="homepage-text homepage-text-5">
+							*insert moral dilemma here*
+						</Text>
 					</div>
 				)}
 				{/* PAGE STAGE 2 - THE COUNCIL */}
@@ -360,6 +387,27 @@ export default function App() {
 							<Text className="end-h1">
 								The Council thanks you!
 							</Text>
+						</div>
+					</div>
+				)}
+				{/* POP UP MORE DETAILS */}
+				{detailsPageBool && (
+					<div className="pop-up-content">
+						<Text className="council-title">
+							The {memberName} says...
+						</Text>
+						<Text className="council-query-label">
+							Here’s what Council Member {memberName} had to say
+							so far.
+						</Text>
+						<div>
+							<Image
+								src="../public/" // Replace with the actual path to your image
+								alt="Council Member Image" // Add an appropriate alt text
+								boxSize="200px" // Adjust the image size as needed
+								objectFit="cover" // Adjust the object fit style as needed
+							/>
+							<div>CONVERSATION GOES HERE</div>
 						</div>
 					</div>
 				)}
