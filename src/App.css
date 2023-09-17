@@ -371,6 +371,10 @@ body {
 }
 
 /* PAGE STAGE 3 - END STAGE */
+.end-content {
+	padding-bottom: 700px;
+}
+
 .end-title {
 	text-align: center;
 }
@@ -419,4 +423,18 @@ body {
 #refresh {
 	border-radius: 6px;
 	background: var(--Blue-Gradient, linear-gradient(99deg, #12E9F1 0%, #BF7FEA 100%));
+}
+
+.disco-gif {
+	position: absolute;
+	top: -240px;
+	left: 207px;
+	width: 70%;
+	z-index: 5;
+}
+
+.green-floor {
+	padding-top: 100px;
+	transform: scale(1.2);
+
 }

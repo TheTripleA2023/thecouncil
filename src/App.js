@@ -15,6 +15,16 @@ import Model from "./components/Model.js";
 import Table from "./components/Table";
 import Disco from "./components/Disco";
 import DotsGif from "./images/dots-same-time.gif";
+import DiscoGif from "./images/Disco1.gif";
+
+import Bg1 from "./images/TYBG1.png"
+import Bg2 from "./images/TYBG2.png"
+import Bg3 from "./images/TYBG3.png"
+
+import BlueFloor from "./images/Bluefloor.svg"
+import GreenFloor from "./images/Greenfloor.svg"
+import PinkFloor from "./images/Pinkfloor.svg"
+
 import {
 	Environment,
 	Lightformer,
@@ -51,7 +61,7 @@ function CouncilTable(props, id) {
 	// Return the view, these are regular Threejs elements expressed in JSX
 	return (
 		<mesh>
-			{/* <Disco position={[0,0,0]} scale={0.012}/> */}
+			{/* <Disco position={[0,0,0]} scale={0.002}/> */}
 			{/* <Dots position={[0, 3, 0]} rotation={[0, Math.PI / -2, 0]} scale={0.02}/> */}
 			<mesh
 				{...props}
@@ -65,6 +75,7 @@ function CouncilTable(props, id) {
 			>
 				<Suspense fallback={null}>
 					{/* <Frog position={[0, 0, 0]}/> */}
+					{/* <Disco position={[0,2.4,0]} scale={0.0015}/> */}
 					<Table position={[0, 0, 0]} scale={0.012} />
 					<Model position={[0, 0, -1.8]} scale={1.75} name="Panda" />
 					<Model
@@ -444,6 +455,9 @@ export default function App() {
 								onClick={refreshPage}>
 								Ask another question
 							</Button>
+
+							<Image className="disco-gif" src={DiscoGif}/>
+							<Image className="green-floor" src={GreenFloor}/>
 						</div>
 					</div>
 				)}

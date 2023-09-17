@@ -6,40 +6,27 @@ import useSpline from '@splinetool/r3f-spline'
 import { OrthographicCamera } from '@react-three/drei'
 
 export default function Scene({ ...props }) {
-  const { nodes, materials } = useSpline('https://prod.spline.design/r0rK8zY3cu9zYg1t/scene.splinecode')
+  const { nodes, materials } = useSpline('https://prod.spline.design/g8vx4jmfENd4ub-Q/scene.splinecode')
   return (
     <>
       <color attach="background" args={['#74757a']} />
       <group {...props} dispose={null}>
         <scene name="Scene 1">
           <mesh
-            name="Sphere 2"
-            geometry={nodes['Sphere 2'].geometry}
-            material={nodes['Sphere 2'].material}
+            name="Ellipse"
+            geometry={nodes.Ellipse.geometry}
+            material={materials['Ellipse Material']}
             castShadow
             receiveShadow
+            position={[1.9, 68.05, 0.53]}
+            rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
           />
           <mesh
-            name="Cylinder"
-            geometry={nodes.Cylinder.geometry}
-            material={materials['Cylinder Material']}
+            name="Sphere"
+            geometry={nodes.Sphere.geometry}
+            material={nodes.Sphere.material}
             castShadow
             receiveShadow
-            position={[0, 134.02, 0]}
-          />
-          <directionalLight
-            name="Directional Light"
-            castShadow
-            intensity={0.7}
-            shadow-mapSize-width={1024}
-            shadow-mapSize-height={1024}
-            shadow-camera-near={-10000}
-            shadow-camera-far={100000}
-            shadow-camera-left={-1000}
-            shadow-camera-right={1000}
-            shadow-camera-top={1000}
-            shadow-camera-bottom={-1000}
-            position={[200, 300, 300]}
           />
           {/* <OrthographicCamera name="1" makeDefault={true} far={10000} near={-50000} />
           <hemisphereLight name="Default Ambient Light" intensity={0.75} color="#eaeaea" /> */}
