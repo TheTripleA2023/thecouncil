@@ -11,22 +11,17 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as React from "react";
 import { AiOutlineCheck } from "react-icons/ai";
 import Model from "./components/Model.js";
-import Frog from "./components/Frog";
 import Table from "./components/Table";
-import {
-	Environment,
-	Lightformer,
-	OrbitControls,
-	PivotControls,
-} from "@react-three/drei";
 import { Image } from "@chakra-ui/react";
-
+import { Html } from '@react-three/drei'
 import theme from "./chakra-theme";
+import Blob1 from "./components/Blob1";
 
 //Backend
 import GPTCouncil from "./councilBackend/gptCouncil.js";
 
 const AIHandler = new GPTCouncil();
+
 
 //3D Components
 function CouncilTable(props, id) {
@@ -36,21 +31,9 @@ function CouncilTable(props, id) {
   const [hovered, hover] = useState(false)
   const [clicked, click] = useState(false)
 
-  function pickCouncilMember() {
-    click(!clicked)
-  }
-  
   useFrame((state, delta) => {
     ref.current.rotation.y += delta/4
   })
-
-	function pickCouncilMember() {
-		click(!clicked);
-	}
-
-	useFrame((state, delta) => {
-		ref.current.rotation.y += delta / 4;
-	});
 
 	function pickCouncilMember() {
 		click(!clicked);
@@ -63,9 +46,10 @@ function CouncilTable(props, id) {
 			ref={ref}
 			scale={clicked ? 1.5 : 1}
 			onClick={(event) => pickCouncilMember()}
-			onPointerOver={(event) => (event.stopPropagation(), hover(true))}
+			onPointerOver={(event) => (event.stopPropagation(), hover(true),pickCouncilMember())}
 			onPointerOut={(event) => hover(false)}
 		>
+      
 			<Suspense fallback={null}>
 				{/* <Frog position={[0, 0, 0]}/> */}
 				<Table position={[0, 0, 0]} scale={0.012} />
@@ -113,19 +97,7 @@ function CouncilTable(props, id) {
 	);
 }
 
-function Shadows(props) {
-	const { viewport } = useThree();
-	return (
-		<mesh
-			receiveShadow
-			scale={[viewport.width, viewport.height, 1]}
-			{...props}
-		>
-			<planeGeometry />
-			<shadowMaterial transparent opacity={0.5} />
-		</mesh>
-	);
-}
+
 
 //2D Components
 function CouncilCard(props) {
@@ -136,7 +108,7 @@ function CouncilCard(props) {
 			<div className="council-card-member">
 				{/*  Cannot have 3js elements in a 2d component, so probably redundant?*/}
 				<div className="council-card-member-image">
-					<Image borderRadius="full" src="CatAvatar.png" />
+					<Image borderRadius="full" src={props.imagePath} />
 				</div>
 
 				<Text className="council-card-member-name">{props.name}</Text>
@@ -211,7 +183,7 @@ export default function App() {
 							<Text className="homepage-h1">
 								Consult
 								<span className="homepage-gradient-text">
-									the council.
+									the Council.
 								</span>
 							</Text>
 						</div>
@@ -245,7 +217,6 @@ export default function App() {
 								OK
 							</Button>
 						</div>
-
             <Text className="homepage-text homepage-text-1">"my roommates hate me"</Text>
             <Text className="homepage-text homepage-text-2">"do I text my ex back"</Text>
             <Text className="homepage-text homepage-text-3">"how often should I be showering"</Text>
@@ -273,6 +244,7 @@ export default function App() {
 									<CouncilCard
 										key={index}
 										name={councilMember.name}
+                    imagePath={councilMember.imagePath}
 										message={
 											councilMember.conversation &&
 											councilMember.conversation.length
@@ -343,6 +315,7 @@ export default function App() {
 					/>
 					<group>
 						<CouncilTable position={[0, 1, 0]} scale={5.0} />
+        
 					</group>
 				</Canvas>
 			</div>

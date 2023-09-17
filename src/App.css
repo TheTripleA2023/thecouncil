@@ -79,36 +79,36 @@ body {
 
 .homepage-text-1 {
     position: absolute;
-    top: 456px;
-    left: 218px;
+    top: 48%;
+    left: 28%;
     border-radius: 16px 16px 16px 0px;
 }
 
 .homepage-text-2 {
     position: absolute;
-    top: 600px;
-    left: 180px;
+    top: 65%;
+    left: 22%;
     border-radius: 16px 16px 0px 16px;
 }
 
 .homepage-text-3 {
     position: absolute;
-    top: 750px;
-    left: 250px;
+    top: 80%;
+    left: 22%;
     border-radius: 16px 16px 16px 0px;
 }
 
 .homepage-text-4 {
     position: absolute;
-    top: 480px;
-    left: 920px;
+    top: 60%;
+    left: 68%;
     border-radius: 16px 16px 0px 16px;
 }
 
 .homepage-text-5 {
     position: absolute;
-    top: 660px;
-    left: 940px;
+    top: 75%;
+    left: 62%;
     border-radius: 16px 16px 16px 0px;
 }
 
