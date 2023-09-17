@@ -192,6 +192,7 @@ body {
 
 .done-text {
 	margin-top: 16px;
+	text-decoration: underline;
 }
 
 /* 3JS REQUIRED */

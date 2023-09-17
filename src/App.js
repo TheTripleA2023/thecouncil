@@ -30,19 +30,19 @@ const AIHandler = new GPTCouncil();
 
 //3D Components
 function CouncilTable(props, id) {
-  // This reference gives us direct access to the THREE.Mesh object
-  const ref = useRef()
-  // Hold state for hovered and clicked events
-  const [hovered, hover] = useState(false)
-  const [clicked, click] = useState(false)
+	// This reference gives us direct access to the THREE.Mesh object
+	const ref = useRef();
+	// Hold state for hovered and clicked events
+	const [hovered, hover] = useState(false);
+	const [clicked, click] = useState(false);
 
-  function pickCouncilMember() {
-    click(!clicked)
-  }
-  
-  useFrame((state, delta) => {
-    ref.current.rotation.y += delta/4
-  })
+	function pickCouncilMember() {
+		click(!clicked);
+	}
+
+	useFrame((state, delta) => {
+		ref.current.rotation.y += delta / 4;
+	});
 
 	function pickCouncilMember() {
 		click(!clicked);
@@ -131,7 +131,7 @@ function Shadows(props) {
 function CouncilCard(props) {
 	// console.log("card: " + props.message);
 	return (
-		<div className="council-card">
+		<div className="council-card" onClick={handleMoreDetails}>
 			<Text className="council-card-message">{props.message}</Text>
 			<div className="council-card-member">
 				{/*  Cannot have 3js elements in a 2d component, so probably redundant?*/}
@@ -149,6 +149,7 @@ export default function App() {
 	const [pageStage, setPageStage] = useState(0);
 	const [inputValue, setInputValue] = useState("");
 	const [replyValue, setReplyValue] = useState("");
+	const [detailsPageBool, setdetailsPageBool] = useState(false);
 	const [data, setData] = useState(null);
 	const [isLoading, setLoading] = useState(false);
 
@@ -183,6 +184,10 @@ export default function App() {
 		setPageStage(1);
 		setLoading(false);
 	};
+
+	function handleMoreDetails() {
+		setdetailsPageBool(true);
+	}
 
 	const handleDone = () => {
 		setPageStage(2);
@@ -234,11 +239,21 @@ export default function App() {
 							</Button>
 						</div>
 
-            <Text className="homepage-text homepage-text-1">"my roommates hate me"</Text>
-            <Text className="homepage-text homepage-text-2">"do I text my ex back"</Text>
-            <Text className="homepage-text homepage-text-3">"how often should I be showering"</Text>
-            <Text className="homepage-text homepage-text-4">"does pineapple go on pizza"</Text>
-            <Text className="homepage-text homepage-text-5">*insert moral dilemma here*</Text>
+						<Text className="homepage-text homepage-text-1">
+							"my roommates hate me"
+						</Text>
+						<Text className="homepage-text homepage-text-2">
+							"do I text my ex back"
+						</Text>
+						<Text className="homepage-text homepage-text-3">
+							"how often should I be showering"
+						</Text>
+						<Text className="homepage-text homepage-text-4">
+							"does pineapple go on pizza"
+						</Text>
+						<Text className="homepage-text homepage-text-5">
+							*insert moral dilemma here*
+						</Text>
 					</div>
 				)}
 				{/* PAGE STAGE 2 - THE COUNCIL */}
