@@ -176,8 +176,26 @@ function CouncilCard(props) {
 					<Image borderRadius="full" src={props.imagePath} />
 				</div>
 
-				<Text className="council-card-member-name">{props.name}</Text>
+				<Text className="council-card-member-name">
+					The {props.name}
+				</Text>
 			</div>
+		</div>
+	);
+}
+
+function UserMessage(props) {
+	return (
+		<div className="user-message-blob">
+			<Text className="council-card-message">{props.message}</Text>
+		</div>
+	);
+}
+
+function MemberMessage(props) {
+	return (
+		<div className="member-message-blob">
+			<Text className="council-card-message">{props.message}</Text>
 		</div>
 	);
 }
@@ -191,6 +209,7 @@ export default function App() {
 	const [isLoading, setLoading] = useState(false);
 	const [memberName, setMemberName] = useState("");
 	const [memberPic, setMemberPic] = useState("");
+	const [memberConvo, setMemberConvo] = useState([]);
 
 	const ref = useRef();
 
@@ -224,12 +243,17 @@ export default function App() {
 		setLoading(false);
 	};
 
-	const handleMoreDetails = (memberName) => {
+	const handleMoreDetails = (memberName, index) => {
 		setMemberName(memberName);
 		setdetailsPageBool(true);
-		console.log(detailsPageBool);
+		setMemberConvo(data.members[index].conversation);
+		setMemberPic(data.members[index].imagePath);
 		console.log(memberName);
-		console.log("AHHHHHHHHH");
+		console.log(data.members[index].conversation);
+	};
+
+	const handleClose = () => {
+		setdetailsPageBool(false);
 	};
 
 	const handleDone = () => {
@@ -324,7 +348,8 @@ export default function App() {
 										imagePath={councilMember.imagePath}
 										onCardClick={() =>
 											handleMoreDetails(
-												councilMember.name
+												councilMember.name,
+												index
 											)
 										}
 										message={
@@ -372,7 +397,7 @@ export default function App() {
 						</Text>
 					</div>
 				)}
-				{/* PAGE STAGE 3 - LOADING STAGE */}
+				{/* PAGE STAGE 3 - END STAGE */}
 				{pageStage === 2 && (
 					<div className="end-content">
 						<div className="end-title">
@@ -384,22 +409,52 @@ export default function App() {
 				)}
 				{/* POP UP MORE DETAILS */}
 				{detailsPageBool && (
-					<div className="pop-up-content">
-						<Text className="council-title">
-							The {memberName} says...
-						</Text>
-						<Text className="council-query-label">
-							Here’s what Council Member {memberName} had to say
-							so far.
-						</Text>
-						<div>
-							<Image
-								src="../public/" // Replace with the actual path to your image
-								alt="Council Member Image" // Add an appropriate alt text
-								boxSize="200px" // Adjust the image size as needed
-								objectFit="cover" // Adjust the object fit style as needed
-							/>
-							<div>CONVERSATION GOES HERE</div>
+					<div>
+						<div className="overlay"></div>
+						<div className="pop-up-content">
+							<Text className="pop-up-title">
+								The {memberName} says...
+							</Text>
+							<button
+								className="close-button"
+								onClick={handleClose}
+							>
+								<span className="close-icon">&times;</span>
+							</button>
+							<Text className="pop-up-subtitle">
+								Here’s what Council Member {memberName} had to
+								say so far.
+							</Text>
+							<div className="pop-up-image-convo">
+								<Image
+									className="pop-up-image"
+									src={memberPic} // Replace with the actual path to your image
+									alt="Council Member Image" // Add an appropriate alt text
+									boxSize="200px" // Adjust the image size as needed
+									objectFit="cover" // Adjust the object fit style as needed
+								/>
+								<div className="pop-up-convo">
+									{memberConvo.map((message, index) => {
+										if (index % 2 === 0) {
+											// Even index, render UserMessage
+											return (
+												<UserMessage
+													key={index}
+													message={message.content}
+												/>
+											);
+										} else {
+											// Odd index, render MemberMessage
+											return (
+												<MemberMessage
+													key={index}
+													message={message.content}
+												/>
+											);
+										}
+									})}
+								</div>
+							</div>
 						</div>
 					</div>
 				)}
