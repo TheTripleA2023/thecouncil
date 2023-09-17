@@ -390,3 +390,18 @@ body {
 	background-size: cover;
 	background-repeat: no-repeat;
 }
+
+.council-select-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+/* PAGE STAGE 4 - COUNCIL SELECT STAGE */
+.council-select-h1 {
+	font-size: 48px;
+	font-weight: 900;
+	color: #ffffff;
+	text-align: center;
+}
