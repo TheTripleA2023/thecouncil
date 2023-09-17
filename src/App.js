@@ -11,7 +11,6 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as React from "react";
 import { AiOutlineCheck } from "react-icons/ai";
 import Model from "./components/Model.js";
-import Frog from "./components/Frog";
 import Table from "./components/Table";
 import Dots from "./components/Dots"
 import DotsGif from "./images/dots-same-time.gif"
@@ -22,29 +21,27 @@ import {
 	PivotControls,
 } from "@react-three/drei";
 import { Image } from "@chakra-ui/react";
-
+import { Html } from '@react-three/drei'
 import theme from "./chakra-theme";
+import Blob1 from "./components/Blob1";
 
 //Backend
 import GPTCouncil from "./councilBackend/gptCouncil.js";
 
 const AIHandler = new GPTCouncil();
 
+
 //3D Components
 function CouncilTable(props, id) {
-	// This reference gives us direct access to the THREE.Mesh object
-	const ref = useRef();
-	// Hold state for hovered and clicked events
-	const [hovered, hover] = useState(false);
-	const [clicked, click] = useState(false);
+  // This reference gives us direct access to the THREE.Mesh object
+  const ref = useRef()
+  // Hold state for hovered and clicked events
+  const [hovered, hover] = useState(false)
+  const [clicked, click] = useState(false)
 
-	function pickCouncilMember() {
-		click(!clicked);
-	}
-
-	useFrame((state, delta) => {
-		ref.current.rotation.y += delta / 4;
-	});
+  useFrame((state, delta) => {
+    ref.current.rotation.y += delta/4
+  })
 
 	function pickCouncilMember() {
 		click(!clicked);
@@ -57,11 +54,12 @@ function CouncilTable(props, id) {
 			<mesh
 			{...props}
 			ref={ref}
-			scale={clicked ? 1.5 : 1}
+			scale={ 1.25}
 			onClick={(event) => pickCouncilMember()}
-			onPointerOver={(event) => (event.stopPropagation(), hover(true))}
+			onPointerOver={(event) => (event.stopPropagation(), hover(true),pickCouncilMember())}
 			onPointerOut={(event) => hover(false)}
 		>
+      
 			<Suspense fallback={null}>
 				{/* <Frog position={[0, 0, 0]}/> */}
 				<Table position={[0, 0, 0]} scale={0.012} />
@@ -163,19 +161,7 @@ function CouncilTable(props, id) {
 	);
 }
 
-function Shadows(props) {
-	const { viewport } = useThree();
-	return (
-		<mesh
-			receiveShadow
-			scale={[viewport.width, viewport.height, 1]}
-			{...props}
-		>
-			<planeGeometry />
-			<shadowMaterial transparent opacity={0.5} />
-		</mesh>
-	);
-}
+
 
 //2D Components
 function CouncilCard(props) {
@@ -186,7 +172,7 @@ function CouncilCard(props) {
 			<div className="council-card-member">
 				{/*  Cannot have 3js elements in a 2d component, so probably redundant?*/}
 				<div className="council-card-member-image">
-					<Image borderRadius="full" src="CatAvatar.png" />
+					<Image borderRadius="full" src={props.imagePath} />
 				</div>
 
 				<Text className="council-card-member-name">{props.name}</Text>
@@ -198,56 +184,44 @@ function CouncilCard(props) {
 export default function App() {
 	const [pageStage, setPageStage] = useState(0);
 	const [inputValue, setInputValue] = useState("");
+	const [replyValue, setReplyValue] = useState("");
 	const [data, setData] = useState(null);
 	const [isLoading, setLoading] = useState(false);
 
 	const ref = useRef();
-
-	// const handleSubmit = () => {
-	// 	setInputValue(document.querySelector(".prompt-input").value);
-	// 	if (inputValue === "") {
-	// 		return;
-	// 	}
-	// 	AIHandler.askTheCouncil(inputValue)
-	// 		.then(setData(AIHandler.godJson))
-	// 		.then(setPageStage(1));
-	// };
-	console.log("rerender: ", data);
 
 	const handleSubmit = async () => {
 		setInputValue(document.querySelector(".prompt-input").value);
 		if (inputValue === "") {
 			return;
 		}
-
-		setLoading(true); // Set loading to true before making the API call
-		setPageStage(2);
+		setLoading(true);
+		setPageStage(3);
 		const response = await AIHandler.askTheCouncil(inputValue);
 		console.log(response);
 		setData(AIHandler.godJson);
 		setPageStage(1);
-		console.log("test", AIHandler.godJson);
-		console.log(data); // Log the data once it's available
-		console.log("here");
-		setLoading(false); // Set loading to false when the response is received
+		setLoading(false);
 	};
 
-	const handleReply = () => {
-		setInputValue(document.querySelector(".prompt-input").value);
-		if (inputValue === "") {
+	const handleReply = async () => {
+		setReplyValue(
+			document.querySelector(".council-reply-prompt-input").value
+		);
+		if (replyValue === "") {
 			return;
 		}
+		setLoading(true);
+		setPageStage(3);
+		const response = await AIHandler.askTheCouncil(replyValue);
+		console.log(response);
+		setData(AIHandler.godJson);
+		setPageStage(1);
+		setLoading(false);
+	};
 
-		setLoading(true); // Set loading to true before making the API call
-
-		AIHandler.askTheCouncil(inputValue)
-			.then((response) => {
-				setData(AIHandler.godJson);
-				setPageStage(1);
-			})
-			.finally(() => {
-				setLoading(false); // Set loading to false when the response is received
-			});
+	const handleDone = () => {
+		setPageStage(2);
 	};
 
 	return (
@@ -261,7 +235,7 @@ export default function App() {
 							<Text className="homepage-h1">
 								Consult
 								<span className="homepage-gradient-text">
-									the council.
+									the Council.
 								</span>
 							</Text>
 						</div>
@@ -325,6 +299,7 @@ export default function App() {
 									<CouncilCard
 										key={index}
 										name={councilMember.name}
+                    imagePath={councilMember.imagePath}
 										message={
 											councilMember.conversation &&
 											councilMember.conversation.length
@@ -365,9 +340,22 @@ export default function App() {
 								OK
 							</Button>
 						</div>
+						<Text className="done-text" onClick={handleDone}>
+							No thanks, I’m all done!
+						</Text>
 					</div>
 				)}
 				{/* PAGE STAGE 3 - LOADING STAGE */}
+				{pageStage === 2 && (
+					<div className="end-content">
+						<div className="end-title">
+							<Text className="end-h1">
+								The Council thanks you!
+							</Text>
+						</div>
+					</div>
+				)}
+				{/* LOADING STAGE */}
 				{isLoading && (
 					<div className="council-content">
 						<Text className="council-title">
@@ -395,6 +383,7 @@ export default function App() {
 					/>
 					<group>
 						<CouncilTable position={[0, 1, 0]} scale={5.0} />
+        
 					</group>
 				</Canvas>
 			</div>
