@@ -13,6 +13,7 @@ import { AiOutlineCheck } from "react-icons/ai";
 import Model from "./components/Model.js";
 import Table from "./components/Table";
 import Dots from "./components/Dots"
+import Disco from "./components/Disco"
 import DotsGif from "./images/dots-same-time.gif"
 import {
 	Environment,
@@ -50,6 +51,7 @@ function CouncilTable(props, id) {
 	// Return the view, these are regular Threejs elements expressed in JSX
 	return (
 		<mesh>
+			<Disco position={[0,0,0]} scale={0.012}/>
 			{/* <Dots position={[0, 3, 0]} rotation={[0, Math.PI / -2, 0]} scale={0.02}/> */}
 			<mesh
 			{...props}
@@ -270,7 +272,7 @@ export default function App() {
 							</Button>
 						</div>
 
-						<Image className="dots-gif" src={DotsGif}/>
+						{/* <Image className="dots-gif" src={DotsGif}/> */}
 
             <Text className="homepage-text homepage-text-1">"my roommates hate me"</Text>
             <Text className="homepage-text homepage-text-2">"do I text my ex back"</Text>
@@ -363,6 +365,7 @@ export default function App() {
 						</Text>
 						<Text className="council-query-label">Your query:</Text>
 						<Text className="council-query">{inputValue}</Text>
+						<Image className="dots-gif" src={DotsGif}/>
 					</div>
 				)}
 				<Canvas
