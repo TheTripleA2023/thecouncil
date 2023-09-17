@@ -25,6 +25,8 @@ import BlueFloor from "./images/Bluefloor.svg"
 import GreenFloor from "./images/Greenfloor.svg"
 import PinkFloor from "./images/Pinkfloor.svg"
 
+import Animals from "./images/Animals.png"
+
 import {
 	Environment,
 	Lightformer,
@@ -473,6 +475,7 @@ export default function App() {
 
 							<Image className="disco-gif" src={DiscoGif}/>
 							<Image className="green-floor" src={GreenFloor}/>
+							<Image className="animals" src={Animals}/>
 						</div>
 					</div>
 				)}

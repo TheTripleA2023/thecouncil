@@ -458,3 +458,10 @@ body {
 	color: transparent;
 	margin-left: 5px;
 }
+
+.animals {
+	z-index: 2;
+	position: absolute;
+	top: 470px;
+	left: 70px;
+}
