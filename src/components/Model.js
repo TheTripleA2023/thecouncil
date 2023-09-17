@@ -4,13 +4,14 @@ customized manually. It uses drei's new useAnimations hook which extracts
 all actions and sets up a THREE.AnimationMixer for it so that you don't have to.
 All of the assets actions, action-names and clips are available in its output. 
 */
+import { useFrame} from '@react-three/fiber'
 
-import React, { useEffect, useState, useMemo } from "react"
+
 import { useFBX } from "@react-three/drei";
 
 
 export default function Model({ ...props }) {
-    const fbx = useFBX("Cow.fbx");
+    const fbx = useFBX(props.name+".fbx");
 
     return (
         <>

@@ -19,6 +19,7 @@ import {
 	OrbitControls,
 	PivotControls,
 } from "@react-three/drei";
+import { Image } from "@chakra-ui/react";
 
 import theme from "./chakra-theme";
 
@@ -34,42 +35,74 @@ function CouncilTable(props, id) {
 	// Hold state for hovered and clicked events
 	const [hovered, hover] = useState(false);
 	const [clicked, click] = useState(false);
-	function CouncilMember(props, id) {
-		// This reference gives us direct access to the THREE.Mesh object
-		const ref = useRef();
-		// Hold state for hovered and clicked events
-		const [hovered, hover] = useState(false);
-		const [clicked, click] = useState(false);
 
-		function pickCouncilMember() {
-			click(!clicked);
-		}
-
-		useFrame((state, delta) => (ref.current.rotation.y += delta / 4));
-		function pickCouncilMember() {
-			click(!clicked);
-		}
-
-		// Return the view, these are regular Threejs elements expressed in JSX
-		return (
-			<mesh
-				{...props}
-				ref={ref}
-				scale={clicked ? 1.5 : 1}
-				onClick={(event) => pickCouncilMember()}
-				onPointerOver={(event) => (
-					event.stopPropagation(), hover(true)
-				)}
-				onPointerOut={(event) => hover(false)}
-			>
-				<Suspense fallback={null}>
-					{/* <Frog position={[0, 0, 0]}/> */}
-					<Table position={[0, 0, 0]} scale={0.01} />
-					<Model position={[0, 0, -1.4]} />
-				</Suspense>
-			</mesh>
-		);
+	function pickCouncilMember() {
+		click(!clicked);
 	}
+
+	useFrame((state, delta) => {
+		ref.current.rotation.y += delta / 4;
+	});
+
+	function pickCouncilMember() {
+		click(!clicked);
+	}
+
+	// Return the view, these are regular Threejs elements expressed in JSX
+	return (
+		<mesh
+			{...props}
+			ref={ref}
+			scale={clicked ? 1.5 : 1}
+			onClick={(event) => pickCouncilMember()}
+			onPointerOver={(event) => (event.stopPropagation(), hover(true))}
+			onPointerOut={(event) => hover(false)}
+		>
+			<Suspense fallback={null}>
+				{/* <Frog position={[0, 0, 0]}/> */}
+				<Table position={[0, 0, 0]} scale={0.012} />
+				<Model position={[0, 0, -1.8]} scale={1.75} name="Panda" />
+				<Model
+					position={[1.4, 0, 0]}
+					rotation={[0, Math.PI / -2, 0]}
+					name="Flamingo"
+				/>
+				<Model
+					position={[0, 0, 1.4]}
+					rotation={[0, Math.PI, 0]}
+					name="Cat"
+				/>
+				<Model
+					position={[-1.6, 0, 0]}
+					rotation={[0, Math.PI / 2, 0]}
+					name="Platypus"
+				/>
+				<Model
+					position={[-1, 0, -1]}
+					scale={0.9}
+					rotation={[0, Math.PI / 4, 0]}
+					name="Frog"
+				/>
+				<Model
+					position={[1, 0, 1]}
+					scale={0.8}
+					rotation={[0, (-3 * Math.PI) / 4, 0]}
+					name="Possum"
+				/>
+				<Model
+					position={[-1.1, 0, 1.1]}
+					rotation={[0, (3 * Math.PI) / 4, 0]}
+					name="Hornbill"
+				/>
+				<Model
+					position={[1.4, 0, -1.4]}
+					scale={1.2}
+					rotation={[0, -Math.PI / 4, 0]}
+					name="Tiger"
+				/>
+			</Suspense>
+		</mesh>
+	);
 }
 
 function Shadows(props) {
@@ -93,7 +126,10 @@ function CouncilCard(props) {
 		<div className="council-card">
 			<Text className="council-card-message">{props.message}</Text>
 			<div className="council-card-member">
-				<div className="council-card-member-image"></div>
+				{/*  Cannot have 3js elements in a 2d component, so probably redundant?*/}
+				<div className="council-card-member-image">
+					<Image borderRadius="full" src="CatAvatar.png" />
+				</div>
 
 				<Text className="council-card-member-name">{props.name}</Text>
 			</div>
@@ -148,7 +184,7 @@ export default function App() {
 
 		AIHandler.askTheCouncil(inputValue)
 			.then((response) => {
-				setData(response);
+				setData(AIHandler.godJson);
 				setPageStage(1);
 			})
 			.finally(() => {
@@ -288,50 +324,12 @@ export default function App() {
 					<ambientLight />
 					<directionalLight
 						castShadow
-						intensity={0.6}
+						intensity={0.01}
 						position={[0, 0, 10]}
 					/>
 					<group>
-						<CouncilTable position={[0, 2, 0]} scale={5.0} />
+						<CouncilTable position={[0, 1, 0]} scale={5.0} />
 					</group>
-					<Environment resolution={256}>
-						<group rotation={[-Math.PI / 2, 0, 0]}>
-							<Lightformer
-								intensity={4}
-								rotation-x={Math.PI / 2}
-								position={[0, 5, -9]}
-								scale={[10, 10, 1]}
-							/>
-							{[2, 0, 2, 0, 2, 0, 2, 0].map((x, i) => (
-								<Lightformer
-									key={i}
-									form="circle"
-									intensity={4}
-									rotation={[Math.PI / 2, 0, 0]}
-									position={[x, 4, i * 4]}
-									scale={[4, 1, 1]}
-								/>
-							))}
-							<Lightformer
-								intensity={2}
-								rotation-y={Math.PI / 2}
-								position={[-5, 1, -1]}
-								scale={[50, 2, 1]}
-							/>
-							<Lightformer
-								intensity={2}
-								rotation-y={Math.PI / 2}
-								position={[-5, -1, -1]}
-								scale={[50, 2, 1]}
-							/>
-							<Lightformer
-								intensity={2}
-								rotation-y={-Math.PI / 2}
-								position={[10, 1, 0]}
-								scale={[50, 2, 1]}
-							/>
-						</group>
-					</Environment>
 				</Canvas>
 			</div>
 		</ChakraProvider>
