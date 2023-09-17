@@ -190,7 +190,7 @@ function CouncilCard(props) {
 function UserMessage(props) {
 	return (
 		<div className="user-message-blob">
-			<Text className="council-card-message">{props.message}</Text>
+			<Text className="user-message">{props.message}</Text>
 		</div>
 	);
 }
@@ -198,7 +198,7 @@ function UserMessage(props) {
 function MemberMessage(props) {
 	return (
 		<div className="member-message-blob">
-			<Text className="council-card-message">{props.message}</Text>
+			<Text className="member-message">{props.message}</Text>
 		</div>
 	);
 }
@@ -274,7 +274,7 @@ export default function App() {
 
 	const refreshPage = async () => {
 		window.location.reload();
-	}
+	};
 
 	return (
 		<ChakraProvider theme={theme}>
@@ -440,8 +440,11 @@ export default function App() {
 							<Text className="end-h2">
 								We hope our advice helped.
 							</Text>
-							<Button className="refresh-button" id="refresh"
-								onClick={refreshPage}>
+							<Button
+								className="refresh-button"
+								id="refresh"
+								onClick={refreshPage}
+							>
 								Ask another question
 							</Button>
 						</div>
