@@ -57,6 +57,7 @@ body {
 	vertical-align: middle;
 	/* flex-grow: 1; */
 	margin-right: 12px;
+	z-index: 11;
 }
 
 .submit-button {
@@ -110,6 +111,14 @@ body {
     top: 660px;
     left: 940px;
     border-radius: 16px 16px 16px 0px;
+}
+
+.dots-gif {
+	width: 20%;
+	position: absolute;
+	top: 380px;
+	justify-content: center;
+	z-index: 10;
 }
 
 
