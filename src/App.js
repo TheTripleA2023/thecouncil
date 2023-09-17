@@ -6,27 +6,21 @@ import {
 	Textarea,
 } from "@chakra-ui/react";
 import "./App.css";
-import { useRef, useState, Suspense, useEffect } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useRef, useState, Suspense } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
 import * as React from "react";
 import { AiOutlineCheck } from "react-icons/ai";
 import Model from "./components/Model.js";
 import Table from "./components/Table";
 import Dots from "./components/Dots"
 import DotsGif from "./images/dots-same-time.gif"
-import {
-	Environment,
-	Lightformer,
-	OrbitControls,
-	PivotControls,
-} from "@react-three/drei";
 import { Image } from "@chakra-ui/react";
-import { Html } from '@react-three/drei'
 import theme from "./chakra-theme";
-import Blob1 from "./components/Blob1";
+import { Wrap, WrapItem, Center} from '@chakra-ui/react'
 
 //Backend
 import GPTCouncil from "./councilBackend/gptCouncil.js";
+import { TrialMembers } from "./councilBackend/gptCouncil.js";
 
 const AIHandler = new GPTCouncil();
 
@@ -54,7 +48,7 @@ function CouncilTable(props, id) {
 			<mesh
 			{...props}
 			ref={ref}
-			scale={ 1.25}
+			scale={1.25}
 			onClick={(event) => pickCouncilMember()}
 			onPointerOver={(event) => (event.stopPropagation(), hover(true),pickCouncilMember())}
 			onPointerOut={(event) => hover(false)}
@@ -204,6 +198,12 @@ export default function App() {
 		setLoading(false);
 	};
 
+	const enterCouncilSelect = () => {
+		setPageStage(3);
+		setLoading(false);
+	};
+
+
 	const handleReply = async () => {
 		setReplyValue(
 			document.querySelector(".council-reply-prompt-input").value
@@ -272,11 +272,19 @@ export default function App() {
 
 						<Image className="dots-gif" src={DotsGif}/>
 
-            <Text className="homepage-text homepage-text-1">"my roommates hate me"</Text>
-            <Text className="homepage-text homepage-text-2">"do I text my ex back"</Text>
-            <Text className="homepage-text homepage-text-3">"how often should I be showering"</Text>
-            <Text className="homepage-text homepage-text-4">"does pineapple go on pizza"</Text>
-            <Text className="homepage-text homepage-text-5">*insert moral dilemma here*</Text>
+            <div className="council-prompt">
+				<Button
+					size={"sm"}
+					className="submit-button"
+					colorScheme="teal"
+					variant="outline"
+					ml={2} // Add margin-left to create space between the input and button
+					onClick={enterCouncilSelect} // Call the handleSubmit function on button click
+					margin={"1em"}
+				>
+					Customize your Council
+				</Button>
+            </div>
 					</div>
 				)}
 				{/* PAGE STAGE 2 - THE COUNCIL */}
@@ -298,8 +306,8 @@ export default function App() {
 								data.members.map((councilMember, index) => (
 									<CouncilCard
 										key={index}
-										name={councilMember.name}
-                    imagePath={councilMember.imagePath}
+										name={"The " + councilMember.name}
+                    					imagePath={councilMember.imagePath}
 										message={
 											councilMember.conversation &&
 											councilMember.conversation.length
@@ -365,6 +373,43 @@ export default function App() {
 						<Text className="council-query">{inputValue}</Text>
 					</div>
 				)}
+				{/* PAGE STAGE 3 - COUNCIL SELECT */}
+				{pageStage === 3 && !isLoading && (
+					<div className="homepage-content">
+						<div className="homepage-title" >
+							<Text className="homepage-h1">
+								Choose your Council Members
+							</Text>
+							<Center>
+							<Text className="homepage-gradient-text">
+								Choose 4 members for your Council
+							</Text>
+							</Center>
+						</div>
+						<Center margin={'1em'}>
+							<Wrap spacing='1em' justify='center'> 
+							{TrialMembers.map((councilMember, index) => (
+								<WrapItem>
+									<Center w='250px' h='350px' bg='blackAlpha.500' className="council-member-portfolio">
+										Box 5
+									</Center>
+								</WrapItem>
+							))}
+							</Wrap>
+						</Center>
+
+						<Button
+							className="submit-button"
+							colorScheme="teal"
+							rightIcon={<AiOutlineCheck />}
+							variant="solid"
+							ml={2} // Add margin-left to create space between the input and button
+							onClick={handleSubmit} // Call the handleSubmit function on button click
+						>
+							OK
+						</Button>
+					</div>	
+				)}
 				<Canvas
 					orthographic
 					camera={{ position: [0, 5, 10], zoom: 100 }}
@@ -383,7 +428,6 @@ export default function App() {
 					/>
 					<group>
 						<CouncilTable position={[0, 1, 0]} scale={5.0} />
-        
 					</group>
 				</Canvas>
 			</div>
