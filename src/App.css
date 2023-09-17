@@ -58,7 +58,7 @@ body {
 	margin-top: 36px;
 	color: transparent;
 	margin-left: 16px;
-	height:100%;
+	height: 100%;
 }
 
 .prompt-input {
@@ -88,38 +88,38 @@ body {
 }
 
 .homepage-text-1 {
-    position: absolute;
-    top: 375px;
-    left: 218px;
-    border-radius: 16px 16px 16px 0px;
+	position: absolute;
+	top: 375px;
+	left: 218px;
+	border-radius: 16px 16px 16px 0px;
 }
 
 .homepage-text-2 {
-    position: absolute;
-    top: 520px;
-    left: 180px;
-    border-radius: 16px 16px 0px 16px;
+	position: absolute;
+	top: 520px;
+	left: 180px;
+	border-radius: 16px 16px 0px 16px;
 }
 
 .homepage-text-3 {
-    position: absolute;
-    top: 670px;
-    left: 250px;
-    border-radius: 16px 16px 16px 0px;
+	position: absolute;
+	top: 670px;
+	left: 250px;
+	border-radius: 16px 16px 16px 0px;
 }
 
 .homepage-text-4 {
-    position: absolute;
-    top: 400px;
-    left: 920px;
-    border-radius: 16px 16px 0px 16px;
+	position: absolute;
+	top: 400px;
+	left: 920px;
+	border-radius: 16px 16px 0px 16px;
 }
 
 .homepage-text-5 {
-    position: absolute;
-    top: 580px;
-    left: 940px;
-    border-radius: 16px 16px 16px 0px;
+	position: absolute;
+	top: 580px;
+	left: 940px;
+	border-radius: 16px 16px 16px 0px;
 }
 
 .dots-gif {
@@ -183,7 +183,6 @@ body {
 	color: #ffffff;
 	font-size: 16px;
 }
-
 
 .council-card-message {
 	margin-bottom: 20px;
@@ -306,6 +305,8 @@ body {
 	color: #ffffff;
 	padding-top: 60px;
 	padding-left: 60px;
+	max-height: 100%;
+	overflow-y: auto;
 }
 
 .close-button {

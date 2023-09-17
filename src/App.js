@@ -353,7 +353,7 @@ export default function App() {
 						<Text className="council-title">
 							The Council says...
 						</Text>
-						<Text className="council-query-label">Your query:</Text>
+						<Text className="council-query-label">You said:</Text>
 						{data ? (
 							<Text className="council-query">
 								{data.questions[data.questions.length - 1]}
@@ -486,7 +486,7 @@ export default function App() {
 						<Text className="council-title">
 							The Council is thinking...
 						</Text>
-						<Text className="council-query-label">Your query:</Text>
+						<Text className="council-query-label">You said:</Text>
 						<Text className="council-query">{inputValue}</Text>
 						<Image className="dots-gif" src={DotsGif} />
 					</div>
