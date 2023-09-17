@@ -201,7 +201,7 @@ function CouncilCard(props) {
 function UserMessage(props) {
 	return (
 		<div className="user-message-blob">
-			<Text className="council-card-message">{props.message}</Text>
+			<Text className="user-message">{props.message}</Text>
 		</div>
 	);
 }
@@ -209,7 +209,7 @@ function UserMessage(props) {
 function MemberMessage(props) {
 	return (
 		<div className="member-message-blob">
-			<Text className="council-card-message">{props.message}</Text>
+			<Text className="member-message">{props.message}</Text>
 		</div>
 	);
 }
@@ -285,7 +285,7 @@ export default function App() {
 
 	const refreshPage = async () => {
 		window.location.reload();
-	}
+	};
 
 	return (
 		<ChakraProvider theme={theme}>
@@ -451,8 +451,11 @@ export default function App() {
 							<Text className="end-h2">
 								We hope our advice helped.
 							</Text>
-							<Button className="refresh-button" id="refresh"
-								onClick={refreshPage}>
+							<Button
+								className="refresh-button"
+								id="refresh"
+								onClick={refreshPage}
+							>
 								Ask another question
 							</Button>
 
@@ -535,9 +538,9 @@ export default function App() {
 				)}
 				{/* PAGE STAGE 3 - COUNCIL SELECT */}
 				{pageStage === 3 && !isLoading && (
-					<div className="homepage-content">
-						<div className="homepage-title">
-							<Text className="homepage-h1">
+					<div className="council-select-content">
+						<div className="council-select-title">
+							<Text className="council-select-h1">
 								Choose your Council Members
 							</Text>
 							<Center>
@@ -546,19 +549,37 @@ export default function App() {
 								</Text>
 							</Center>
 						</div>
-						<Center margin={'1em'}>
-							<Wrap spacing='1em' justify='center'> 
-							{TrialMembers.map((councilMember, index) => (
-								<WrapItem key={index}>
-									<Center w='220px' h='280px' bg='blackAlpha.500' className="council-member-portfolio">
-										<div onClick={handleCouncilClick}>
-											<Image borderRadius="full" src={councilMember.imagePath} padding={'1em'}/>
-											<Text><b>{"The " + councilMember.name}</b></Text>
-											<Text>{councilMember.type}</Text>
-										</div>
-									</Center>
-								</WrapItem>
-							))}
+						<Center margin={"1em"}>
+							<Wrap spacing="1em" justify="center">
+								{TrialMembers.map((councilMember, index) => (
+									<WrapItem key={index}>
+										<Center
+											w="220px"
+											h="280px"
+											bg="blackAlpha.500"
+											className="council-member-portfolio"
+										>
+											<div onClick={handleCouncilClick}>
+												<Image
+													borderRadius="full"
+													src={
+														councilMember.imagePath
+													}
+													padding={"1em"}
+												/>
+												<Text>
+													<b>
+														{"The " +
+															councilMember.name}
+													</b>
+												</Text>
+												<Text>
+													{councilMember.type}
+												</Text>
+											</div>
+										</Center>
+									</WrapItem>
+								))}
 							</Wrap>
 						</Center>
 
