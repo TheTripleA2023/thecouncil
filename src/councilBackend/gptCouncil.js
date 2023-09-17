@@ -98,6 +98,7 @@ export const TrialMembers = [
 export default class GPTCouncil {
 	godJson = {
 		members: [],
+        inactiveMembers: [],
 		trial: 0,
 		questions: [],
 	};
@@ -109,6 +110,11 @@ export default class GPTCouncil {
 			this.godJson.members = members;
 		}
 	}
+
+    setCouncilMembers(indexes) {
+        this.godJson.members = indexes.map((index) => TrialMembers[index]);
+        console.log(this.godJson.members);
+    }
 
 	async askTheCouncil(message) {
 		//Add Question to List and iterate trial number

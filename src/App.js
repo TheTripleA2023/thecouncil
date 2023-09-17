@@ -15,6 +15,16 @@ import Model from "./components/Model.js";
 import Table from "./components/Table";
 import Disco from "./components/Disco";
 import DotsGif from "./images/dots-same-time.gif";
+import DiscoGif from "./images/Disco1.gif";
+
+import Bg1 from "./images/TYBG1.png"
+import Bg2 from "./images/TYBG2.png"
+import Bg3 from "./images/TYBG3.png"
+
+import BlueFloor from "./images/Bluefloor.svg"
+import GreenFloor from "./images/Greenfloor.svg"
+import PinkFloor from "./images/Pinkfloor.svg"
+
 import {
 	Environment,
 	Lightformer,
@@ -52,7 +62,7 @@ function CouncilTable(props, id) {
 	// Return the view, these are regular Threejs elements expressed in JSX
 	return (
 		<mesh>
-			{/* <Disco position={[0,0,0]} scale={0.012}/> */}
+			{/* <Disco position={[0,0,0]} scale={0.002}/> */}
 			{/* <Dots position={[0, 3, 0]} rotation={[0, Math.PI / -2, 0]} scale={0.02}/> */}
 			<mesh
 				{...props}
@@ -66,6 +76,7 @@ function CouncilTable(props, id) {
 			>
 				<Suspense fallback={null}>
 					{/* <Frog position={[0, 0, 0]}/> */}
+					{/* <Disco position={[0,2.4,0]} scale={0.0015}/> */}
 					<Table position={[0, 0, 0]} scale={0.012} />
 					<Model position={[0, 0, -1.8]} scale={1.75} name="Panda" />
 					<Model
@@ -161,6 +172,7 @@ export default function App() {
 	const [memberName, setMemberName] = useState("");
 	const [memberPic, setMemberPic] = useState("");
 	const [memberConvo, setMemberConvo] = useState([]);
+	const [councilList, setCouncilList] = useState([]);
 
 	const ref = useRef();
 
@@ -213,7 +225,24 @@ export default function App() {
 	};
 
 	const handleCouncilClick = (index) => {
-		console.log("LOLOL");
+		console.log(index);
+
+		if(councilList.includes(index)){
+			setCouncilList(councilList.filter((item) => item !== index));
+			return;
+		} else if(councilList.length === 4) {
+			return;
+		} else {
+			setCouncilList([...councilList, index]);
+		}
+		
+	};
+
+	const handleCouncilSelect = (index) => {
+		console.log(index);
+		AIHandler.setCouncilMembers(councilList);
+		setPageStage(0);
+
 	};
 
 	const handleDone = () => {
@@ -383,8 +412,20 @@ export default function App() {
 								The Council thanks you!
 							</Text>
 							<Text className="end-h2">
-								Thank you for choosing the council.
+								Thank you for choosing 
+								<span className="endpage-gradient-text">
+									The Council
+								</span>
+								.
 							</Text>
+
+							{/* <Text className="homepage-h1">
+								Consult
+								<span className="homepage-gradient-text">
+									the Council.
+								</span>
+							</Text> */}
+
 							<Text className="end-h2">
 								We hope our advice helped.
 							</Text>
@@ -395,6 +436,9 @@ export default function App() {
 							>
 								Ask another question
 							</Button>
+
+							<Image className="disco-gif" src={DiscoGif}/>
+							<Image className="green-floor" src={GreenFloor}/>
 						</div>
 					</div>
 				)}
@@ -483,47 +527,28 @@ export default function App() {
 								</Text>
 							</Center>
 						</div>
-						<Center margin={"1em"}>
-							<Wrap spacing="1em" justify="center">
-								{TrialMembers.map((councilMember, index) => (
-									<WrapItem key={index}>
-										<Center
-											w="220px"
-											h="280px"
-											bg="blackAlpha.500"
-											className="council-member-portfolio"
-										>
-											<div onClick={handleCouncilClick}>
-												<Image
-													borderRadius="full"
-													src={
-														councilMember.imagePath
-													}
-													padding={"1em"}
-												/>
-												<Text>
-													<b>
-														{"The " +
-															councilMember.name}
-													</b>
-												</Text>
-												<Text>
-													{councilMember.type}
-												</Text>
-											</div>
-										</Center>
-									</WrapItem>
-								))}
+						<Center margin={'1em'}>
+							<Wrap spacing='1em' justify='center'> 
+							{TrialMembers.map((councilMember, index) => (
+								<WrapItem key={index}>
+									<Center w='220px' h='280px' bg='blackAlpha.500' className="council-member-portfolio" border={councilList.includes(index)?'8px':'0px'} borderColor={"#9EFD69"} animation={'ease-in'}>
+										<div onClick={() => handleCouncilClick(index)}>
+											<Image borderRadius="full" src={councilMember.imagePath} padding={'1em'}/>
+											<Text><b>{"The " + councilMember.name}</b></Text>
+											<Text>{councilMember.type}</Text>
+										</div>
+									</Center>
+								</WrapItem>
+							))}
 							</Wrap>
 						</Center>
-
 						<Button
 							className="submit-button"
 							colorScheme="teal"
 							rightIcon={<AiOutlineCheck />}
 							variant="solid"
 							ml={2} // Add margin-left to create space between the input and button
-							onClick={handleSubmit} // Call the handleSubmit function on button click
+							onClick={handleCouncilSelect} // Call the handleSubmit function on button click
 						>
 							OK
 						</Button>
