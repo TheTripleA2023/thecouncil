@@ -557,7 +557,7 @@ export default function App() {
 						</Button>
 					</div>
 				)}
-				{pageStage !== 2 && !isLoading && (<Canvas
+				{pageStage === 0 && (<Canvas
 					orthographic
 					camera={{ position: [0, 5, 10], zoom: 100 }}
 					style={{ pointerEvents: "none" }}
@@ -574,7 +574,7 @@ export default function App() {
 						position={[0, 0, 10]}
 					/>
 					<group>
-						<CouncilTable position={[0, 1, 0]} scale={5.0} />
+						<CouncilTable position={[0,1, 0]} scale={5.0} />
 					</group>
 				</Canvas>
 				)}
