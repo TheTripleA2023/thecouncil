@@ -272,6 +272,10 @@ export default function App() {
 		setPageStage(2);
 	};
 
+	const refreshPage = async () => {
+		window.location.reload();
+	}
+
 	return (
 		<ChakraProvider theme={theme}>
 			<div ref={ref} className="container">
@@ -430,6 +434,16 @@ export default function App() {
 							<Text className="end-h1">
 								The Council thanks you!
 							</Text>
+							<Text className="end-h2">
+								Thank you for choosing the council.
+							</Text>
+							<Text className="end-h2">
+								We hope our advice helped.
+							</Text>
+							<Button className="refresh-button" id="refresh"
+								onClick={refreshPage}>
+								Ask another question
+							</Button>
 						</div>
 					</div>
 				)}

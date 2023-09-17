@@ -378,6 +378,16 @@ body {
 	font-size: 64px;
 	font-weight: 900;
 	color: #ffffff;
+
+	/* top: 200px; */
+	padding-top: 200px;
+	padding-bottom: 20px;
+}
+
+.end-h2 {
+	font-size: 24px;
+	font-weight: 900;
+	color: #ffffff;
 }
 
 .end-content {
@@ -386,9 +396,9 @@ body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	background-image: url("./images/TYBG1.png");
+	/* background-image: url("./images/TYBG1.png");
 	background-size: cover;
-	background-repeat: no-repeat;
+	background-repeat: no-repeat; */
 }
 
 .council-select-content {
@@ -404,4 +414,25 @@ body {
 	font-weight: 900;
 	color: #ffffff;
 	text-align: center;
+}
+.refresh-button {
+	display: inline-flex;
+	height: 48px;
+	padding: 0px 24px;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	flex-shrink: 0;
+
+	border-radius: 6px;
+
+	margin-top: 16px;
+}
+
+#refresh {
+	border-radius: 6px;
+	background: var(
+		--Blue-Gradient,
+		linear-gradient(99deg, #12e9f1 0%, #bf7fea 100%)
+	);
 }
