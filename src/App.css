@@ -78,38 +78,38 @@ body {
 }
 
 .homepage-text-1 {
-    position: absolute;
-    top: 48%;
-    left: 28%;
-    border-radius: 16px 16px 16px 0px;
+	position: absolute;
+	top: 48%;
+	left: 28%;
+	border-radius: 16px 16px 16px 0px;
 }
 
 .homepage-text-2 {
-    position: absolute;
-    top: 65%;
-    left: 22%;
-    border-radius: 16px 16px 0px 16px;
+	position: absolute;
+	top: 65%;
+	left: 22%;
+	border-radius: 16px 16px 0px 16px;
 }
 
 .homepage-text-3 {
-    position: absolute;
-    top: 80%;
-    left: 22%;
-    border-radius: 16px 16px 16px 0px;
+	position: absolute;
+	top: 80%;
+	left: 22%;
+	border-radius: 16px 16px 16px 0px;
 }
 
 .homepage-text-4 {
-    position: absolute;
-    top: 60%;
-    left: 68%;
-    border-radius: 16px 16px 0px 16px;
+	position: absolute;
+	top: 60%;
+	left: 68%;
+	border-radius: 16px 16px 0px 16px;
 }
 
 .homepage-text-5 {
-    position: absolute;
-    top: 75%;
-    left: 62%;
-    border-radius: 16px 16px 16px 0px;
+	position: absolute;
+	top: 75%;
+	left: 62%;
+	border-radius: 16px 16px 16px 0px;
 }
 
 /* PAGE STAGE 2 - THE COUNCIL */
@@ -240,6 +240,22 @@ body {
 	left: 0;
 	width: 100%;
 	height: 100%;
+}
+
+/* POP UP MORE DETAILS */
+.pop-up-content {
+	/* filter: blur(5px); */
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 9999;
+	color: #ffffff;
 }
 
 /* PAGE STAGE 3 - LOADING STAGE */

@@ -99,9 +99,12 @@ function CouncilTable(props, id) {
 
 //2D Components
 function CouncilCard(props) {
-	// console.log("card: " + props.message);
+	const handleClick = () => {
+		// Call the handleMoreDetails function to show the pop-up
+		props.onCardClick();
+	};
 	return (
-		<div className="council-card" onClick={handleMoreDetails}>
+		<div className="council-card" onClick={handleClick}>
 			<Text className="council-card-message">{props.message}</Text>
 			<div className="council-card-member">
 				{/*  Cannot have 3js elements in a 2d component, so probably redundant?*/}
@@ -122,6 +125,8 @@ export default function App() {
 	const [detailsPageBool, setdetailsPageBool] = useState(false);
 	const [data, setData] = useState(null);
 	const [isLoading, setLoading] = useState(false);
+	const [memberName, setMemberName] = useState("");
+	const [memberPic, setMemberPic] = useState("");
 
 	const ref = useRef();
 
@@ -155,9 +160,13 @@ export default function App() {
 		setLoading(false);
 	};
 
-	function handleMoreDetails() {
+	const handleMoreDetails = (memberName) => {
+		setMemberName(memberName);
 		setdetailsPageBool(true);
-	}
+		console.log(detailsPageBool);
+		console.log(memberName);
+		console.log("AHHHHHHHHH");
+	};
 
 	const handleDone = () => {
 		setPageStage(2);
@@ -246,6 +255,11 @@ export default function App() {
 										key={index}
 										name={councilMember.name}
 										imagePath={councilMember.imagePath}
+										onCardClick={() =>
+											handleMoreDetails(
+												councilMember.name
+											)
+										}
 										message={
 											councilMember.conversation &&
 											councilMember.conversation.length
@@ -298,6 +312,27 @@ export default function App() {
 							<Text className="end-h1">
 								The Council thanks you!
 							</Text>
+						</div>
+					</div>
+				)}
+				{/* POP UP MORE DETAILS */}
+				{detailsPageBool && (
+					<div className="pop-up-content">
+						<Text className="council-title">
+							The {memberName} says...
+						</Text>
+						<Text className="council-query-label">
+							Here’s what Council Member {memberName} had to say
+							so far.
+						</Text>
+						<div>
+							<Image
+								src="../public/" // Replace with the actual path to your image
+								alt="Council Member Image" // Add an appropriate alt text
+								boxSize="200px" // Adjust the image size as needed
+								objectFit="cover" // Adjust the object fit style as needed
+							/>
+							<div>CONVERSATION GOES HERE</div>
 						</div>
 					</div>
 				)}
