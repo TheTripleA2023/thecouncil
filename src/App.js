@@ -446,8 +446,20 @@ export default function App() {
 								The Council thanks you!
 							</Text>
 							<Text className="end-h2">
-								Thank you for choosing the council.
+								Thank you for choosing 
+								<span className="endpage-gradient-text">
+									The Council
+								</span>
+								.
 							</Text>
+
+							{/* <Text className="homepage-h1">
+								Consult
+								<span className="homepage-gradient-text">
+									the Council.
+								</span>
+							</Text> */}
+
 							<Text className="end-h2">
 								We hope our advice helped.
 							</Text>

@@ -451,3 +451,10 @@ body {
 	transform: scale(1.2);
 
 }
+
+.endpage-gradient-text {
+	background-image: linear-gradient(to right, #12e9f1, #bf7fea);
+	background-clip: text;
+	color: transparent;
+	margin-left: 5px;
+}
