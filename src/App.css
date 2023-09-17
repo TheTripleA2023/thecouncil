@@ -57,6 +57,7 @@ body {
 	vertical-align: middle;
 	/* flex-grow: 1; */
 	margin-right: 12px;
+	z-index: 11;
 }
 
 .submit-button {
@@ -79,37 +80,45 @@ body {
 
 .homepage-text-1 {
 	position: absolute;
-	top: 48%;
-	left: 28%;
+	top: 456px;
+	left: 218px;
 	border-radius: 16px 16px 16px 0px;
 }
 
 .homepage-text-2 {
 	position: absolute;
-	top: 65%;
-	left: 22%;
+	top: 600px;
+	left: 180px;
 	border-radius: 16px 16px 0px 16px;
 }
 
 .homepage-text-3 {
 	position: absolute;
-	top: 80%;
-	left: 22%;
+	top: 750px;
+	left: 250px;
 	border-radius: 16px 16px 16px 0px;
 }
 
 .homepage-text-4 {
 	position: absolute;
-	top: 60%;
-	left: 68%;
+	top: 480px;
+	left: 920px;
 	border-radius: 16px 16px 0px 16px;
 }
 
 .homepage-text-5 {
 	position: absolute;
-	top: 75%;
-	left: 62%;
+	top: 660px;
+	left: 940px;
 	border-radius: 16px 16px 16px 0px;
+}
+
+.dots-gif {
+	width: 20%;
+	position: absolute;
+	top: 380px;
+	justify-content: center;
+	z-index: 10;
 }
 
 /* PAGE STAGE 2 - THE COUNCIL */

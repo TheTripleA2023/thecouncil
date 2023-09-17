@@ -12,6 +12,14 @@ import * as React from "react";
 import { AiOutlineCheck } from "react-icons/ai";
 import Model from "./components/Model.js";
 import Table from "./components/Table";
+import Dots from "./components/Dots";
+import DotsGif from "./images/dots-same-time.gif";
+import {
+	Environment,
+	Lightformer,
+	OrbitControls,
+	PivotControls,
+} from "@react-three/drei";
 import { Image } from "@chakra-ui/react";
 import { Html } from "@react-three/drei";
 import theme from "./chakra-theme";
@@ -40,60 +48,116 @@ function CouncilTable(props, id) {
 
 	// Return the view, these are regular Threejs elements expressed in JSX
 	return (
-		<mesh
-			{...props}
-			ref={ref}
-			scale={clicked ? 1.5 : 1}
-			onClick={(event) => pickCouncilMember()}
-			onPointerOver={(event) => (
-				event.stopPropagation(), hover(true), pickCouncilMember()
-			)}
-			onPointerOut={(event) => hover(false)}
-		>
-			<Suspense fallback={null}>
-				{/* <Frog position={[0, 0, 0]}/> */}
-				<Table position={[0, 0, 0]} scale={0.012} />
-				<Model position={[0, 0, -1.8]} scale={1.75} name="Panda" />
-				<Model
-					position={[1.4, 0, 0]}
-					rotation={[0, Math.PI / -2, 0]}
-					name="Flamingo"
-				/>
-				<Model
-					position={[0, 0, 1.4]}
-					rotation={[0, Math.PI, 0]}
-					name="Cat"
-				/>
-				<Model
-					position={[-1.6, 0, 0]}
-					rotation={[0, Math.PI / 2, 0]}
-					name="Platypus"
-				/>
-				<Model
-					position={[-1, 0, -1]}
-					scale={0.9}
-					rotation={[0, Math.PI / 4, 0]}
-					name="Frog"
-				/>
-				<Model
-					position={[1, 0, 1]}
-					scale={0.8}
-					rotation={[0, (-3 * Math.PI) / 4, 0]}
-					name="Possum"
-				/>
-				<Model
-					position={[-1.1, 0, 1.1]}
-					rotation={[0, (3 * Math.PI) / 4, 0]}
-					name="Hornbill"
-				/>
-				<Model
-					position={[1.4, 0, -1.4]}
-					scale={1.2}
-					rotation={[0, -Math.PI / 4, 0]}
-					name="Tiger"
-				/>
-			</Suspense>
+		<mesh>
+			{/* <Dots position={[0, 3, 0]} rotation={[0, Math.PI / -2, 0]} scale={0.02}/> */}
+			<mesh
+				{...props}
+				ref={ref}
+				scale={1.25}
+				onClick={(event) => pickCouncilMember()}
+				onPointerOver={(event) => (
+					event.stopPropagation(), hover(true), pickCouncilMember()
+				)}
+				onPointerOut={(event) => hover(false)}
+			>
+				<Suspense fallback={null}>
+					{/* <Frog position={[0, 0, 0]}/> */}
+					<Table position={[0, 0, 0]} scale={0.012} />
+					<Model position={[0, 0, -1.8]} scale={1.75} name="Panda" />
+					<Model
+						position={[1.4, 0, 0]}
+						rotation={[0, Math.PI / -2, 0]}
+						name="Flamingo"
+					/>
+					<Model
+						position={[0, 0, 1.4]}
+						rotation={[0, Math.PI, 0]}
+						name="Cat"
+					/>
+					<Model
+						position={[-1.6, 0, 0]}
+						rotation={[0, Math.PI / 2, 0]}
+						name="Platypus"
+					/>
+					<Model
+						position={[-1, 0, -1]}
+						scale={0.9}
+						rotation={[0, Math.PI / 4, 0]}
+						name="Frog"
+					/>
+					<Model
+						position={[1, 0, 1]}
+						scale={0.8}
+						rotation={[0, (-3 * Math.PI) / 4, 0]}
+						name="Possum"
+					/>
+					<Model
+						position={[-1.1, 0, 1.1]}
+						rotation={[0, (3 * Math.PI) / 4, 0]}
+						name="Hornbill"
+					/>
+					<Model
+						position={[1.4, 0, -1.4]}
+						scale={1.2}
+						rotation={[0, -Math.PI / 4, 0]}
+						name="Tiger"
+					/>
+				</Suspense>
+			</mesh>
 		</mesh>
+		// <mesh
+		// 	{...props}
+		// 	ref={ref}
+		// 	scale={clicked ? 1.5 : 1}
+		// 	onClick={(event) => pickCouncilMember()}
+		// 	onPointerOver={(event) => (event.stopPropagation(), hover(true))}
+		// 	onPointerOut={(event) => hover(false)}
+		// >
+		// 	<Suspense fallback={null}>
+		// 		{/* <Frog position={[0, 0, 0]}/> */}
+		// 		{/* <Dots position={[-0.45, 1, 0]} scale={0.01}/> */}
+		// 		<Table position={[0, 0, 0]} scale={0.012} />
+		// 		<Model position={[0, 0, -1.8]} scale={1.75} name="Panda" />
+		// 		<Model
+		// 			position={[1.4, 0, 0]}
+		// 			rotation={[0, Math.PI / -2, 0]}
+		// 			name="Flamingo"
+		// 		/>
+		// 		<Model
+		// 			position={[0, 0, 1.4]}
+		// 			rotation={[0, Math.PI, 0]}
+		// 			name="Cat"
+		// 		/>
+		// 		<Model
+		// 			position={[-1.6, 0, 0]}
+		// 			rotation={[0, Math.PI / 2, 0]}
+		// 			name="Platypus"
+		// 		/>
+		// 		<Model
+		// 			position={[-1, 0, -1]}
+		// 			scale={0.9}
+		// 			rotation={[0, Math.PI / 4, 0]}
+		// 			name="Frog"
+		// 		/>
+		// 		<Model
+		// 			position={[1, 0, 1]}
+		// 			scale={0.8}
+		// 			rotation={[0, (-3 * Math.PI) / 4, 0]}
+		// 			name="Possum"
+		// 		/>
+		// 		<Model
+		// 			position={[-1.1, 0, 1.1]}
+		// 			rotation={[0, (3 * Math.PI) / 4, 0]}
+		// 			name="Hornbill"
+		// 		/>
+		// 		<Model
+		// 			position={[1.4, 0, -1.4]}
+		// 			scale={1.2}
+		// 			rotation={[0, -Math.PI / 4, 0]}
+		// 			name="Tiger"
+		// 		/>
+		// 	</Suspense>
+		// </mesh>
 	);
 }
 
@@ -217,6 +281,9 @@ export default function App() {
 								OK
 							</Button>
 						</div>
+
+						<Image className="dots-gif" src={DotsGif} />
+
 						<Text className="homepage-text homepage-text-1">
 							"my roommates hate me"
 						</Text>
