@@ -28,7 +28,7 @@ body {
 }
 
 .homepage-title {
-	margin-top: 160px;
+	margin-top: 60px;
 }
 
 .homepage-h1 {
@@ -64,55 +64,53 @@ body {
 }
 
 .homepage-text {
-    display: inline-flex;
-    padding: 10px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    color: #FFFFFF;
+	display: inline-flex;
+	padding: 10px;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	color: #ffffff;
 
-    /* border-radius: 16px 16px 16px 0px; */
-    background: linear-gradient(91deg, #000822 0%, #0C276B 100%);
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
-    z-index: 10;
+	/* border-radius: 16px 16px 16px 0px; */
+	background: linear-gradient(91deg, #000822 0%, #0c276b 100%);
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+	z-index: 10;
 }
 
 .homepage-text-1 {
-    position: absolute;
-    top: 456px;
-    left: 218px;
-    border-radius: 16px 16px 16px 0px;
+	position: absolute;
+	top: 456px;
+	left: 218px;
+	border-radius: 16px 16px 16px 0px;
 }
 
 .homepage-text-2 {
-    position: absolute;
-    top: 600px;
-    left: 180px;
-    border-radius: 16px 16px 0px 16px;
+	position: absolute;
+	top: 600px;
+	left: 180px;
+	border-radius: 16px 16px 0px 16px;
 }
 
 .homepage-text-3 {
-    position: absolute;
-    top: 750px;
-    left: 250px;
-    border-radius: 16px 16px 16px 0px;
+	position: absolute;
+	top: 750px;
+	left: 250px;
+	border-radius: 16px 16px 16px 0px;
 }
 
 .homepage-text-4 {
-    position: absolute;
-    top: 480px;
-    left: 920px;
-    border-radius: 16px 16px 0px 16px;
+	position: absolute;
+	top: 480px;
+	left: 920px;
+	border-radius: 16px 16px 0px 16px;
 }
 
 .homepage-text-5 {
-    position: absolute;
-    top: 660px;
-    left: 940px;
-    border-radius: 16px 16px 16px 0px;
+	position: absolute;
+	top: 660px;
+	left: 940px;
+	border-radius: 16px 16px 16px 0px;
 }
-
-
 
 /* PAGE STAGE 2 - THE COUNCIL */
 
@@ -121,17 +119,17 @@ body {
 }
 
 .council-title {
-	font-size: 80px;
+	font-size: 64px;
 	font-weight: 900;
 	/* margin-top: 100px; */
 }
 
 .council-query-label {
-	font-size: 20px;
+	font-size: 16px;
 }
 
 .council-query {
-	font-size: 24px;
+	font-size: 20px;
 	font-weight: 600;
 	margin-bottom: 24px;
 }
@@ -151,12 +149,12 @@ body {
 
 .council-card {
 	width: 590px;
-	min-height: 220px;
+	min-height: 200px;
 	padding: 20px;
 	border-radius: 16px;
 	background: linear-gradient(to bottom, #46537a, #203864);
 	color: #ffffff;
-	font-size: 20px;
+	font-size: 16px;
 }
 
 .council-card-message {
@@ -179,7 +177,7 @@ body {
 }
 
 .council-reply-prompt {
-	margin-top: 40px;
+	margin-top: 24px;
 }
 
 .council-reply-prompt-input {
@@ -190,6 +188,10 @@ body {
 
 .reply-button {
 	vertical-align: middle;
+}
+
+.done-text {
+	margin-top: 16px;
 }
 
 /* 3JS REQUIRED */
@@ -244,7 +246,7 @@ body {
 	text-align: center;
 }
 .end-h1 {
-	font-size: 80px;
+	font-size: 64px;
 	font-weight: 900;
 	color: #ffffff;
 }
