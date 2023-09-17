@@ -606,7 +606,7 @@ export default function App() {
 						</Button>
 					</div>
 				)}
-				<Canvas
+				{pageStage !== 2 && !isLoading && (<Canvas
 					orthographic
 					camera={{ position: [0, 5, 10], zoom: 100 }}
 					style={{ pointerEvents: "none" }}
@@ -626,6 +626,7 @@ export default function App() {
 						<CouncilTable position={[0, 1, 0]} scale={5.0} />
 					</group>
 				</Canvas>
+				)}
 			</div>
 		</ChakraProvider>
 	);
