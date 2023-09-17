@@ -432,6 +432,7 @@ body {
 	border-radius: 6px;
 
 	margin-top: 16px;
+	z-index: 10;
 }
 
 #refresh {
