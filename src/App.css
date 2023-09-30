@@ -20,11 +20,6 @@ body {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	/* height: 100vh; 
-    text-align: center;  */
-	/* background-image: url("../public/background.png");
-	background-size: cover;
-	background-repeat: no-repeat; */
 }
 
 .homepage-title {
@@ -437,7 +432,10 @@ body {
 
 #refresh {
 	border-radius: 6px;
-	background: var(--Blue-Gradient, linear-gradient(99deg, #12E9F1 0%, #BF7FEA 100%));
+	background: var(
+		--Blue-Gradient,
+		linear-gradient(99deg, #12e9f1 0%, #bf7fea 100%)
+	);
 }
 
 .disco-gif {
@@ -451,7 +449,6 @@ body {
 .green-floor {
 	padding-top: 100px;
 	transform: scale(1.2);
-
 }
 
 .endpage-gradient-text {
