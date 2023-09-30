@@ -8,6 +8,7 @@
 		"@emotion/styled": "^11.11.0",
 		"@react-three/drei": "^9.83.9",
 		"@react-three/fiber": "8.13",
+		"@splinetool/loader": "^0.9.455",
 		"@splinetool/r3f-spline": "^1.0.2",
 		"@testing-library/jest-dom": "^5.17.0",
 		"@testing-library/react": "^13.4.0",

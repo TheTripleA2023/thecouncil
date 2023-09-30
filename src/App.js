@@ -168,7 +168,6 @@ function MemberMessage(props) {
 }
 
 //2D Components
-function CouncilCard(props) {}
 
 export default function App() {
 	const [pageStage, setPageStage] = useState(0);
@@ -253,20 +252,6 @@ export default function App() {
 
 	const handleDone = () => {
 		setPageStage(2);
-	};
-
-	const handleReply = () => {
-		setReplyValue(
-			document.querySelector(".council-reply-prompt-input").value
-		);
-		// TODO
-		if (replyValue === "") {
-			return;
-		}
-		AIHandler.askTheCouncil(replyValue).then((response) => {
-			setData(response);
-			setPageStage(1);
-		});
 	};
 
 	return (

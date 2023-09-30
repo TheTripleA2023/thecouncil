@@ -2745,6 +2745,13 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@splinetool/loader@^0.9.455":
+  version "0.9.457"
+  resolved "https://registry.yarnpkg.com/@splinetool/loader/-/loader-0.9.457.tgz#b5152e6579568e8df8f6e3b9f6dddc3171f814d8"
+  integrity sha512-jP3/xqlZIy28H+zMlIOx0a4bI2sQOJZkPUtyjOJe0Mg7y1xIsm9Xcuup0X/FhhFUbM8oosgkLV3nUC1DRzhp6Q==
+  dependencies:
+    semver-compare "^1.0.0"
+
 "@splinetool/r3f-spline@^1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@splinetool/r3f-spline/-/r3f-spline-1.0.2.tgz#557b09815ec11d4695ecd9a8fb0f34915d985b2c"
@@ -9721,6 +9728,11 @@ selfsigned@^2.1.1:
   integrity sha512-GSL3aowiF7wa/WtSFwnUrludWFoNhftq8bUkH9pkzjpN2XSPOAYEgg6e0sS9s0rZwgJzJiQRPU18A6clnoW5wQ==
   dependencies:
     node-forge "^1"
+
+semver-compare@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/semver-compare/-/semver-compare-1.0.0.tgz#0dee216a1c941ab37e9efb1788f6afc5ff5537fc"
+  integrity sha512-YM3/ITh2MJ5MtzaM429anh+x2jiLVjqILF4m4oyQB18W7Ggea7BfqdH/wGMK7dDiMghv/6WG7znWMwUDzJiXow==
 
 semver@^6.0.0, semver@^6.3.0, semver@^6.3.1:
   version "6.3.1"
