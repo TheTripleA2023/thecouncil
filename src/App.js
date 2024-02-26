@@ -38,15 +38,15 @@ import { Image } from "@chakra-ui/react";
 import theme from "./chakra-theme";
 import { Wrap, WrapItem, Center } from "@chakra-ui/react";
 import "intersection-observer";
-
+import {AutoResizeTextarea} from "./components/textArea.js";
 //Backend
-import GPTCouncil from "./councilBackend/gptCouncil.js";
-import { TrialMembers } from "./councilBackend/gptCouncil.js";
+import GPTCouncil from "./gptCouncil.js";
+import { TrialMembers } from "./gptCouncil.js";
 
 const AIHandler = new GPTCouncil();
 
 //3D Components
-function CouncilTable(props, id) {
+function CouncilTable(props) {
 	// This reference gives us direct access to the THREE.Mesh object
 	const ref = useRef();
 	// Hold state for hovered and clicked events
@@ -272,9 +272,10 @@ export default function App() {
 						</div>
 
 						<div className="homepage-prompt">
-							<Input
+							<AutoResizeTextarea
 								className="prompt-input"
 								placeholder="Tell us what's going on"
+								minHeight={"32px"}
 								style={{
 									width: "488px",
 								}}
